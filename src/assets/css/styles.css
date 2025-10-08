@@ -1,0 +1,931 @@
+@media print {
+
+    [class*="col-md"], [class*="col-sm"],  [class*="col-lg"], [class*="col-xs"] {
+        float: none !important;
+        
+    }
+  
+}
+
+
+.logo {
+	width:290px;
+}
+
+body {
+	
+	width:100%;
+	height:100%;
+	overflow-x:hidden;
+
+}
+
+.footerLogo {
+	width:1366px;
+	margin-left: -150px;
+}
+
+
+input {
+	text-align:center;
+	padding-left:2px;
+	font-size: 12px;
+}
+
+
+
+.input-group {
+	width:auto;
+	font-size: 12px;
+	height:35px;
+}
+
+.input-group button {
+	height:35px;
+	font-size:12px;
+}
+
+#marketShareWarning {
+	color:white;
+	background-color: red;
+	font-size: 16px;
+	font-style: italic;
+	text-align: center;
+	
+}
+
+.tableHeader {
+	font-size:11px;
+	text-align: center;
+	
+}
+.no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+
+  > .col,
+  > [class*="col-"] {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+.input-group-text {
+	font-size: 12px;
+}
+
+/*.container {
+ width:  1100px !important;
+ zoom: 0.97;
+}*/
+
+.container {
+ width:  1200px !important;
+}
+
+.contentCard {
+	color: #ffffff;
+	border: none;
+}
+
+.card-title {
+}
+
+.card-title-lg {
+	min-height:60px;
+}
+
+.card-body-sm {
+	max-width:69px;
+}
+
+
+.card-result {
+	color: var(--light);
+	font-size:16px;
+}
+
+#sliderValue {
+	padding-left: 20px;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 10px;
+  background-color: red;
+  overflow: visible;
+  cursor: pointer;
+}
+
+#percentageSlider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #04AA6D; /* Green background */
+   background-color: red;
+  cursor: pointer; /* Cursor on hover */
+}
+
+.outputField {
+	background: rgb(18,	31,	94	)	;
+	text-align: right;
+	color:white;
+	padding-right: 10px;
+	line-height:35px;
+}
+
+.smallField {
+	background: rgb(18,	31,	94	)	;
+	text-align: center;
+	font-size:14px;
+	color:white;
+	padding-right: 5px;
+	line-height:25px;
+}
+
+.smallFieldInput {
+	background: rgb(255,	255,	255	)	;
+	text-align: center;
+	font-size:14px;
+	color:black;
+	padding-right: 5px;
+	line-height:25px;
+	border: solid;
+	border-color: rgb(206, 212, 218)
+}
+
+.smallFieldOutput {
+	background: rgb(255,	255,	255	)	;
+	text-align: center;
+	font-size:14px;
+	color:black;
+	padding-right: 5px;
+	line-height:25px;
+	font-weight:bold;
+		border: solid;
+	border-color: rgb(18,	31,	94	)	;
+
+}
+
+.newTable {
+	display:none;
+}
+
+.firstChart {
+	display:none;
+}
+
+.card-result-inc{
+	color: var(--light);
+	font-size:15px;
+}
+.greenDark {
+	background: #339966;
+}
+
+.greenLight{
+	background: #53c68c;
+}
+
+.insideCard_GreenDark {
+	padding: -12px;
+	background: #339966;
+}
+
+.insideCard_GreenLight {
+	padding: -12px;
+	background: #53c68c;
+}
+
+.purpleDark {
+	background: #5A2B81;
+}
+
+.purpleLight{
+	background: #9573ad;
+}
+
+.purpleTitleBar {
+	background: linear-gradient(90deg, rgba(103,63,138,1) 0%, rgba(146,115,170,1) 99%);
+}
+
+.greenTitleBar {
+	background: rgb(140,156, 72 );
+	background: linear-gradient(90deg, rgba(40,156, 72 ,1) 0%, rgba(135, 193, 72 ,1) 99%);
+}
+
+.blueTitleBar {
+	background: rgb(140,156, 72 );
+	background: linear-gradient(90deg, rgba(24, 127, 194 ,1) 0%, rgba(49, 169,222 ,1) 99%);
+}
+
+.modalBody {
+	background: rgb(218,218,218);
+	background: linear-gradient(270deg, rgba(218,218,218,1) 0%, rgba(255,255,255,1) 99%);
+}
+
+
+.insideCard_PurpleDark {
+	padding: -12px;
+	background: #5A2B81;
+	color: #ffffff
+}
+
+.insideCard_PurpleLight {
+	padding: -12px;
+	background: #9573ad;
+	color: #ffffff
+}
+
+.blueDark {
+	background: #336699;
+}
+
+.blueLight{
+	background: #6699cc;
+}
+
+
+.insideCard_BlueDark {
+	padding: -12px;
+	background: #336699;
+	color: #ffffff;
+
+}
+
+.insideCard_BlueLight {
+	padding: -12px;
+	background: #6699cc;
+	color: #ffffff;
+
+}
+
+.inputRow {
+	height:24px;
+} 
+
+
+.panel-body
+{
+	height:30px;
+	text-align: center;
+	padding:6px;
+	background-color: #cccccc;
+	color: black;
+	font-weight: bold;
+	width:290px;
+	font-size:14px;
+}
+
+.panel-body-input
+{
+	height:30px;
+	text-align: center;
+	padding:6px;
+	background-color: #ffffff;
+	color: black;
+	width:290px;
+
+}
+
+.panel-body-result
+{
+	height:30px;
+	text-align: center;
+	font-weight: bold;
+	padding:6px;
+	background-color: rgba(13,35,106,1);
+	color: white;
+	font-weight:bold;
+	width:290px;
+
+}
+
+.panel-body-modal-result
+{
+	height:32px;
+	text-align: center;
+	padding:4px;
+	background-color: #cccccc;
+	color: black;
+	font-weight: bold;
+	width:290px;
+	font-size: 16px;
+	vertical-align: middle;
+}
+
+.panel-body-modal-label-twoline
+{
+	text-align: left;
+	font-size: 12px;
+	vertical-align: middle;
+	line-height:18px;
+}
+
+
+.panel-body-modal-label
+{
+	text-align: left;
+	font-size: 12px;
+	line-height:36px;
+	vertical-align: middle;
+}
+
+.panel-body-modal-row 
+{
+	font-size: 12px;
+	text-align: left;
+	border-bottom-style: none;
+	height: 30px;
+	padding-bottom: 40px;
+	vertical-align: middle;
+}
+
+.panel-body-modal-row-bottom
+{
+	font-size: 12px;
+	text-align: left;
+	border-bottom-style: none;
+	height: 30px;
+	margin-bottom: 84px;
+	vertical-align: middle;
+}
+
+.panel-body-modal-row-input {
+	width: 800px;
+	height: 38px;
+}
+
+
+.modal-content {
+	width:600px;
+}
+
+.finalOutput {
+	background-color: rgb(204,	208,	220)	;
+	color:rgb(21,	32,	89	);
+	font-size: 26px;
+	font-weight:bold;
+	border-radius: 10px;
+	vertical-align: middle;
+	padding-top: 18px;
+	padding-left:20px;
+	height:120px;
+	text-align: center;
+	display: flex;
+}
+
+.finalOutputHeader {
+	text-align: right;
+	display: flex;
+	padding-top: 2px;
+	padding-left:18px;
+}
+
+.finalOutputValue {
+
+	
+}
+.modal-backdrop.show {
+    opacity: 0.6;
+    width:100%;
+    height:100%;
+}
+
+.bigResult {
+	text-align: center;
+	color: #000000;margin-bottom: 2px;
+	font-weight:bold
+}
+
+.overallCard{
+	background: rgb(231,233,235);padding: 20px;padding-top: 5px;padding-bottom: 5px;
+}
+
+.topTitlePurple {
+	font-size: 28px;
+	height: 35px;
+	color: rgb(89, 46, 128);	
+	margin: 0px;
+	vertical-align: center
+}
+
+#tab4 .topTitlePurple {
+	font-size: 24px;
+	height: 10px;
+	color: rgb(89, 46, 128);	
+	margin: 0px;
+	vertical-align: center
+}
+
+
+
+.techTitlePurple {
+	font-size: 14px; 
+	background: rgb(103,63,138);
+	background: linear-gradient(250deg, rgba(103,63,138,1) 0%, rgba(146,115,170,1) 99%);
+	height: 62px;
+	color: white; 
+	border-radius: 10px 10px 0px 0px;
+	padding-top: 15px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin: 0px;
+}
+
+.techTitlePurple2 {
+	font-size: 14px; 
+	background: rgb(103,63,138);
+	background: linear-gradient(250deg, rgba(103,63,138,1) 0%, rgba(146,115,170,1) 99%);
+	height: 62px;
+	color: white; 
+	border-radius: 10px 10px 0px 0px;
+	padding-top: 14px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin: 0px;
+}
+
+.techTitlePurple3 {
+	font-size: 14px; 
+	background: rgb(103,63,138);
+	background: linear-gradient(250deg, rgba(103,63,138,1) 0%, rgba(146,115,170,1) 99%);
+	height: 62px;
+	color: white; 
+	border-radius: 10px 10px 0px 0px;
+	padding-top: 4px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin: 0px;
+}
+
+
+.techSubTitlePurple {
+	font-size: 13px; 
+	background: rgb(89, 46, 127);	
+	height: 35px;
+	color: rgb(251, 157, 46); 
+	margin-top: -6px;
+	margin-left: -20px;
+	margin-right: -20px;
+	padding-top: 10px;
+	vertical-align: center
+}
+
+.topTitleGreen {
+	font-size: 28px;
+	height: 40px;
+	color: rgb(19, 145, 72);	
+	margin: 0px;
+	vertical-align: center
+}
+
+.techTitleGreen {
+	font-size: 14px; 
+	background: rgb(140,156, 72 );
+	background: linear-gradient(250deg, rgba(40,156, 72 ,1) 0%, rgba(135, 193, 72 ,1) 99%);
+	height: 50px;
+	color: white; 
+	border-radius: 10px 10px 0px 0px;
+	padding-top: 15px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin: 0px;
+}
+
+.techTitleGreen2 {
+	font-size: 14px; 
+	background: rgb(140,156, 72 );
+	background: linear-gradient(250deg, rgba(40,156, 72 ,1) 0%, rgba(135, 193, 72 ,1) 99%);
+	height: 50px;
+	color: white; 
+	border-radius: 10px 10px 0px 0px;
+	padding-top: 8px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin: 0px;
+}
+
+.techSubTitleGreen {
+	font-size: 13px; 
+	background: rgb(19,	145,	72	);	
+	height: 35px;
+	color: rgb(251, 157, 46); 
+	margin-top: -6px;
+	margin-left: -20px;
+	margin-right: -20px;
+	padding-top: 10px;
+	vertical-align: center
+}
+
+.topTitleBlue {
+	font-size: 28px;
+	height: 40px;
+	color: rgb(16, 115, 185);	
+	margin: 0px;
+	vertical-align: center
+}
+
+.techTitleBlue  {
+	font-size: 14px; 
+	background: rgb(140,156, 72 );
+	background: linear-gradient(250deg, rgba(24, 127, 194 ,1) 0%, rgba(49, 169,222 ,1) 99%);
+	height: 50px;
+	color: white; 
+	border-radius: 10px 10px 0px 0px;
+	padding-top: 15px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin: 0px;
+}
+
+
+.techTitleBlue2  {
+	font-size: 14px; 
+	background: rgb(140,156, 72 );
+	background: linear-gradient(250deg, rgba(24, 127, 194 ,1) 0%, rgba(49, 169,222 ,1) 99%);
+	height: 50px;
+	color: white; 
+	border-radius: 10px 10px 0px 0px;
+	padding-top: 8px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin: 0px;
+}
+
+.techSubTitleBlue  {
+	font-size: 13px; 
+	background: rgb(16, 115, 185	);	
+	height: 35px;
+	color: rgb(251, 157, 46); 
+	margin-top: -6px;
+	margin-left: -20px;
+	margin-right: -20px;
+	padding-top: 10px;
+	vertical-align: center
+}
+
+.rowCard {
+	padding: -12px;
+	background: rgb(218,218,218);
+	background: linear-gradient(270deg, rgba(218,218,218,1) 0%, rgba(255,255,255,1) 99%);
+	margin-top: -15px;
+	margin-left: -10px;
+	margin-right: -10px;
+	margin-bottom: 8px;
+	color:black;
+	border-radius:0px;
+	height:45px;
+}
+
+.rowCardlg {
+	padding: -12px;
+	background: rgb(218,218,218);
+	background: linear-gradient(270deg, rgba(218,218,218,1) 0%, rgba(255,255,255,1) 99%);
+	margin-top: -15px;
+	margin-left: -10px;
+	margin-right: -10px;
+	margin-bottom: 8px;
+	color:black;
+	border-radius:0px;
+	height:60px;
+}
+
+
+.rowResultCard {
+	padding: -12px;
+	background: rgb(169,169,169);
+	margin-top: -15px;
+	margin-left: -10px;
+	margin-right: -10px;
+	margin-bottom: 8px;
+	color:black;
+	border-radius:0px;
+	height:45px;
+	text-align: center;
+	font-weight:bold;
+	background-image: url("../letterT.svg");
+	background-repeat: no-repeat;
+}
+
+
+.rowCardTitle {
+	font-size: 12px;
+	color: black;
+}
+
+
+
+.rowCardTitleTab2 {
+	line-height: 14px;
+	font-size: 12px;
+	color: black;
+	height:36px;
+	padding-bottom:2px;
+	margin-bottom:15px;
+}
+
+.rowCardResult {
+	font-size: 12px;
+	color: black;
+	font-weight: bold;
+	text-align:right;
+	margin-top: -20px;
+}
+
+.rowCardResultNew {
+	font-size: 12px;
+	color: black;
+	font-weight: normal;
+	text-align:right;
+	margin-top: -20px;
+}
+
+
+.rowCardResultLg {
+	font-size: 12px;
+	color: black;
+	font-weight: bold;
+	text-align:right;
+	margin-top: -5px;
+}
+
+.card1 {
+	padding-right:4px;
+	padding-left:4px;
+}
+
+.card2 {
+	padding-right:4px;
+	padding-left:4px;
+}
+
+.card3 {
+	padding-right:4px;
+	padding-left:4px;
+}
+
+.card4 {
+	padding-right:4px;
+	padding-left:4px;
+}
+
+.resultCard1 {
+	background: rgb(51, 51,51);
+	padding: 14px;
+	color: #ffffff;
+	height:100px;
+}
+
+.resultCard2 {
+	margin-top:5px;
+	background: rgb(102,102,102	);
+	padding: 14px;
+	color: #ffffff;
+}
+ 			
+.resultCard1Purple {
+	background: rgb(169, 151,182);
+	padding: 14px;
+	color: #000000;
+	height:100px;
+}
+
+.resultNumberBlack {
+text-align: right;
+	color: black;
+	font-size:24px;
+}
+
+.resultNumberBlackDRG {
+text-align: right;
+	color: black;
+	font-size:24px;
+	margin-top:-25px;
+}
+
+
+.resultBlackTitle {
+	text-align: left;
+	color: black;
+	font-size:11px;
+}
+
+.resultNumber4 {
+	text-align: right;
+	color: white;
+	font-size:24px;
+
+
+}
+
+.resultNumberDRG {
+	text-align: right;
+	color: red;
+	font-size:24px;
+	margin-top:-20px;
+
+
+}
+
+
+.resultCardTab2 {
+	margin-top: -15px;
+	margin-left: -10px;
+	margin-right: -10px;
+	margin-bottom: 8px;
+
+}
+.resultOrangeTitle {
+	text-align: left;
+	color: rgb(230, 151,47);
+	font-size:11px;
+}
+
+.resultOrangeTitle3 {
+	text-align: left;
+	color: rgb(230, 151,47);
+	font-size:11px;
+}
+
+
+.resultNumber {
+	text-align: right;
+	color: white;
+	font-size:24px;
+}
+
+.modal-title {
+	color:white;
+}
+
+.orange-num {
+	color: rgb(230, 151,47);
+	font-weight: bold;
+}
+
+#tab4 p {
+	font-size:12px;
+}
+
+ol  li {
+
+	font-size:12px;
+
+}
+
+ul li 
+
+{
+
+	font-size:12px;
+
+}
+
+li {
+        margin-bottom: 15px; /* Adjust the value as needed */
+    }
+.referenceSubHeader{
+	font-size:13px;
+	font-weight: bold;
+	text-decoration:underline;
+}
+
+
+.referenceSubtitle{
+	font-weight: bold;
+}
+
+.tab2Mode2 {
+	display:none;
+}
+
+.tab2Mode1 {
+	display:block;
+}
+
+
+.dataBtn {
+	background: rgb(255, 255, 255);
+	border-color: black;
+	color: black;
+	margin-bottom: 5px;
+}
+
+.dataBtn:hover {
+      background-color: rgb(122, 122, 122);
+      transition: 0.2s;
+      	border-color: black;
+	color: black;
+  }
+
+  .dataBtn:focus {
+background: rgb(255, 255, 255);
+	border-color: black;
+	color: black;
+  }
+
+.pagebreak {
+	page-break-before:always;
+}
+
+
+.printTitle {
+	display: none;
+	text-align: center; font-size:24px; font-weight:bold; color: rgb(88,  49,  125); 
+}
+
+#chartContainer {
+	width: auto;
+	height: 200px;
+}
+
+#tab1 {
+	
+}
+
+.normaltext { 
+	font-size: 14px;
+	color: rgb(20,31, 94);
+ }
+
+ .citationText { 
+	font-size: 12px;
+	font-style: italic;
+	color: rgb(20,31, 94);
+ }
+
+.footerText {
+	font-size: 12px;
+	
+	color: rgb(20,31, 94);
+}
+
+
+.headerText { 
+	font-size: 16px;
+	
+	color: rgb(20,31, 94);
+ }
+
+ .headerText_sm {
+	font-size: 16px;
+	
+	color: rgb(20,31, 94);
+ }
+
+.titleText { 
+	font-size: 18px;
+	font-weight: bold;
+	color: rgb(20,31, 94);
+ }
+
+.tab2card-body {
+	padding-top:5px;
+	padding-bottom:5px;
+	padding-left:10px;
+	padding-right:10px;
+}
+
+.deviceCosts {
+	display: none;
+}
+
+.deviceCostsTotals {
+	padding-top: 4px;
+}
+
+.pharmacyCosts {
+	display: none;
+}
+
+.pharmacyCostsTotals {
+	padding-top: 4px;
+}
+
+.fixedCosts {
+	display: none;
+}
+
+.fixedCostsTotals {
+	padding-top: 4px;
+}
+
+.maybeHidden {
+	display: none;
+}
+
+.tab2title {
+	    margin-bottom: -10px;
+}
+
+.maybeHidden2 {
+	display: flex;
+}
+
+.maybeHidden3 {
+	display: block;
+}

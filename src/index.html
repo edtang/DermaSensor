@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+        <script src="assets/js/jquery.min.js" ></script>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Trividia Health 0.18</title>
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" >
+        <link rel="stylesheet" href="assets/css/styles.css">
+        <script src="assets/js/bootstrap-input-spinner.min.js"></script>
+        <script src="assets/js/bootstrap.min.js"></script>
+        <script src="assets/js/Chart.min.js"></script>
+        <script src="assets/js/chartjs-plugin-datalabels.min.js"></script>
+    </head>
+    <body>
+        <div class="container" style="padding-top: 56px;padding-bottom: 71px; ">
+            <div id="page1PrintElements">
+                <div class="row printTitle">
+                    <div class="col-md-12">
+                        <p id="printTitleText">Estimated Costs for Pulmonary Embolism Interventions</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                    </div>
+                    <div class="col-sm-4">
+                        <img src="assets/logo.png" class="logo">
+                    </div>
+                    <div class="col-sm-1">
+                    </div>
+                    <div class="col-sm-1">
+                    </div>
+                    <div class="col-md-2">
+                         <button type="button" class="saveBtn  dataBtn btn-sm btn-primary hideForPrint">Save Data</button>
+                        <button type="button" class="loadBtn  dataBtn btn-sm btn-primary hideForPrint">Load Data</button>
+                        <button type="button" class="savePDFBtn dataBtn btn-sm btn-primary hideForPrint">Save as PDF</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2" >
+
+
+                    </div>
+                    <div class="col-sm-3"  id="whichCostDiv">
+                        
+                    </div>
+                    
+                    <div class="col-sm-2">
+                        
+                    </div>
+                    <div class="col-sm-2">
+                    </div>
+                    <div class="col-sm-2">
+                       
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-10" >
+                    </div>
+                    <div class="col-sm-2">
+                        
+                    </div>
+                </div>
+
+               
+                <div id="mainInputs">
+    <!-- Section 1 -->
+    <section class="card">
+      <div class="section-title sr-only">Section 1</div>
+      <div class="field">
+        <label for="practiceNameInput">Practice Name</label>
+        <textarea id="practiceNameInput" rows="2" placeholder="Enter practice name"></textarea>
+      </div>
+    </section>
+
+    <!-- Section 2 (Care Setting) -->
+    <section class="card">
+      <h2 class="section-title">Care Setting</h2>
+
+      <div class="field">
+        <label for="practiceTypeDropdown">Practice Type</label>
+        <select id="practiceTypeDropdown">
+          <option>Option 1</option>
+          <option>Option 2</option>
+          <option>Option 3</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="practiceSizeDropdown">Practice Size</label>
+        <select id="practiceSizeDropdown">
+          <option>Option 1</option>
+          <option>Option 2</option>
+          <option>Option 3</option>
+          <option>Option 4</option>
+          <option>Option 5</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="numberOfSitesInput">Number of Sites</label>
+        <input id="numberOfSitesInput" type="number" min="0" step="1" value="1" />
+      </div>
+    </section>
+
+    <!-- Section 3 (Care Team & Practice Size) -->
+    <section class="card">
+      <h2 class="section-title">Care Team and Practice Size</h2>
+
+      <div class="field">
+        <label for="numberOfPhysiciansInput">Number of Physicians</label>
+        <input id="numberOfPhysiciansInput" type="number" min="0" step="1" value="1" />
+      </div>
+
+      <div class="field">
+        <label for="numberOfAppProvidersInput">Number of Advanced Practice Providers (PAs, NPs)</label>
+        <input id="numberOfAppProvidersInput" type="number" min="0" step="1" value="0" />
+      </div>
+
+      <div class="field">
+        <label for="averagePatientsPerPhysicianInput">Average Patients per Physician (panel size)</label>
+        <input id="averagePatientsPerPhysicianInput" type="number" min="0" step="1" value="2000" />
+      </div>
+
+      <div class="field">
+        <label>Total Patients in the Practice</label>
+        <output id="totalPatientsOutput">0</output>
+      </div>
+
+      <div class="field two-col">
+        <div>
+          <label for="percentPatients40to64Input">Percent Patients 40–64</label>
+          <input id="percentPatients40to64Input" type="number" min="0" max="100" step="1" value="40" />
+        </div>
+        <div>
+          <label>Total Patients 40–64</label>
+          <output id="totalPatients40to64Output">0</output>
+        </div>
+      </div>
+
+      <div class="field two-col">
+        <div>
+          <label for="percentPatients65PlusInput">Percent Patients 65+</label>
+          <input id="percentPatients65PlusInput" type="number" min="0" max="100" step="1" value="20" />
+        </div>
+        <div>
+          <label>Total Patients 65+</label>
+          <output id="totalPatients65PlusOutput">0</output>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="percent4064CommercialInsuranceInput">Percent 40–64 with Commercial Insurance</label>
+        <input id="percent4064CommercialInsuranceInput" type="number" min="0" max="100" step="1" value="80" />
+      </div>
+
+      <div class="field">
+        <label for="percent65PlusMedicareCoverageInput">Percent 65+ with Medicare Coverage</label>
+        <input id="percent65PlusMedicareCoverageInput" type="number" min="0" max="100" step="1" value="90" />
+      </div>
+    </section>
+
+    <!-- Section 4 (At-Risk Patients & Lesions) -->
+    <section class="card">
+      <h2 class="section-title">At-Risk Patients and Lesions per Year</h2>
+
+      <div class="field">
+        <label for="percentHighRiskPatientsInput">Percent of Adults at High Risk for Skin Cancer</label>
+        <input id="percentHighRiskPatientsInput" type="number" min="0" max="100" step="1" value="10" />
+      </div>
+
+      <div class="field">
+        <label>At-Risk Patients per Physician</label>
+        <output id="atRiskPatientsPerPhysicianOutput">0</output>
+      </div>
+
+      <div class="field">
+        <label>Total At-Risk Patients in Practice</label>
+        <output id="totalAtRiskPatientsOutput">0</output>
+      </div>
+
+      <div class="field">
+        <label for="averageLesionsPerPatientInput">Average Lesions Scanned per Patient</label>
+        <input id="averageLesionsPerPatientInput" type="number" min="0" step="0.1" value="1.5" />
+      </div>
+
+      <div class="field">
+        <label>Total Lesions Scanned Annually</label>
+        <output id="totalLesionsScannedAnnuallyOutput">0</output>
+      </div>
+    </section>
+
+    <!-- Section 5 (Potential Reimbursement Opportunity) -->
+    <section class="card">
+      <h2 class="section-title">Potential Reimbursement Opportunity</h2>
+
+      <fieldset class="fieldset">
+        <legend>Commercial Payer</legend>
+        <div class="field">
+          <label for="commercialPayerDropdown">Payer</label>
+          <select id="commercialPayerDropdown">
+            <option>Option 1</option>
+            <option>Option 2</option>
+            <option>Option 3</option>
+            <option>Option 4</option>
+            <option>Option 5</option>
+            <option>Option 6</option>
+            <option>Option 7</option>
+            <option>Option 8</option>
+          </select>
+        </div>
+        <div class="field two-col">
+          <div>
+            <label for="commercialPercentClaimsInput">% of Claims</label>
+            <input id="commercialPercentClaimsInput" type="number" min="0" max="100" step="1" value="50" />
+          </div>
+          <div>
+            <label for="commercialReimbursementPerScanInput">Reimbursement per Scan (USD)</label>
+            <input id="commercialReimbursementPerScanInput" type="number" min="0" step="0.01" value="80" />
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <legend>Medicare</legend>
+        <div class="field">
+          <label for="medicareMacDropdown">MAC</label>
+          <select id="medicareMacDropdown">
+            <option>Option 1</option>
+            <option>Option 2</option>
+            <option>Option 3</option>
+            <option>Option 4</option>
+            <option>Option 5</option>
+            <option>Option 6</option>
+            <option>Option 7</option>
+            <option>Option 8</option>
+          </select>
+        </div>
+        <div class="field two-col">
+          <div>
+            <label for="medicarePercentClaimsInput">% of Claims</label>
+            <input id="medicarePercentClaimsInput" type="number" min="0" max="100" step="1" value="40" />
+          </div>
+          <div>
+            <label for="medicareReimbursementPerScanInput">Reimbursement per Scan (USD)</label>
+            <input id="medicareReimbursementPerScanInput" type="number" min="0" step="0.01" value="60" />
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <legend>Cash-Pay Patients</legend>
+        <div class="field two-col">
+          <div>
+            <label for="cashPayPercentClaimsInput">% of Claims</label>
+            <input id="cashPayPercentClaimsInput" type="number" min="0" max="100" step="1" value="10" />
+          </div>
+          <div>
+            <label for="cashPayReimbursementPerScanInput">Reimbursement per Scan (USD)</label>
+            <input id="cashPayReimbursementPerScanInput" type="number" min="0" step="0.01" value="90" />
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="field">
+        <label for="assumedPercentDenialsInput">Assumed Percentage of Transactional Denials</label>
+        <input id="assumedPercentDenialsInput" type="number" min="0" max="100" step="1" value="5" />
+      </div>
+
+      <div class="field">
+        <label>Estimated Annual Gross Reimbursement Opportunity with floopy</label>
+        <output id="estimatedAnnualGrossReimbursementOutput">0</output>
+      </div>
+
+      <div class="field">
+        <label>Number of floopy Devices</label>
+        <output id="numberOfFloopyDevicesOutput">0</output>
+      </div>
+
+      <div class="field">
+        <label for="floopySubscriptionCostPerMonthInput">floopy Subscription Plan Cost per Device per Month (USD)</label>
+        <input id="floopySubscriptionCostPerMonthInput" type="number" min="0" step="0.01" value="500" />
+      </div>
+
+      <div class="field">
+        <label>Estimated Annual Net Reimbursement Opportunity with floopy</label>
+        <output id="estimatedAnnualNetReimbursementOutput">0</output>
+      </div>
+
+      <div class="field">
+        <label>Break-Even Estimate (Scans per Month)</label>
+        <output id="breakEvenScansPerMonthOutput">0</output>
+      </div>
+    </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    
+    <script src="assets/js/app.js"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/autonumeric@4.1.0"></script>
+    <script>
+    $("input[type='number']").inputSpinner()
+    </script>
+</body>
+</html>
