@@ -10,9 +10,9 @@ const CONFIG = {
     // Section 2: Care Setting
     numberOfSites: 1,
     
-    // Section 3: Care Team & Practice Size
-    numberOfPhysicians: 3,
-    numberOfAppProviders: 3,
+  // Section 3: Care Team & Practice Size
+  numberOfPhysicians: 1,  // Will be set by practiceType mapping
+  numberOfAppProviders: 1,  // Will be synced to numberOfPhysicians
     averagePatientsPerPhysician: 1760,
     percentPatients40to64: 31.5,
     percentPatients65Plus: 16.8,
@@ -20,8 +20,8 @@ const CONFIG = {
     percent65PlusMedicareCoverage: 98.9,
     
     // Section 4: At-Risk Patients & Lesions
-    percentHighRiskPatients: 10,
-    averageLesionsPerPatient: 1.5,
+    percentHighRiskPatients: 51,
+    averageLesionsPerPatient: 1.57,
     
     // Section 5: Reimbursement
     commercialPercentClaims: 50,
@@ -33,14 +33,32 @@ const CONFIG = {
     assumedPercentDenials: 5,
     floopySubscriptionCostPerMonth: 500,
     
-    // Dropdown defaults
-    practiceType: "Option 1",
-    practiceSize: "Option 1",
-    commercialPayer: "Option 1",
-    medicareMac: "Option 1"
-  };
-  
-  // Utility helpers
+  // Dropdown defaults
+  practiceType: "Primary Care Practice",
+  practiceSize: "1",
+  commercialPayer: "Option 1",
+  medicareMac: "Option 1"
+};
+
+// Practice Type to Number of Physicians mapping
+const PRACTICE_TYPE_TO_PHYSICIANS = {
+  "Primary Care Practice": 1,
+  "Specialty Care Practice": 3,
+  "Membership-based Care Practice": 6,
+  "Large Practice": 20,
+  "Enterprise/Group Network": 40
+};
+
+// Practice Type to Patients per Physician mapping
+const PRACTICE_TYPE_TO_PATIENTS_PER_PHYSICIAN = {
+  "Primary Care Practice": 1760,
+  "Specialty Care Practice": 1760,
+  "Membership-based Care Practice": 1400,
+  "Large Practice": 1400,
+  "Enterprise/Group Network": 1400
+};
+
+// Utility helpers
   const $ = (id) => document.getElementById(id);
   const n = (id) => {
     const el = $(id);
@@ -64,6 +82,46 @@ const CONFIG = {
   const fmtMoney = (x) => `$${(x || 0).toFixed(2)}`;
   const fmtNum = (x, digits = 2) => (Number.isFinite(x) ? x.toFixed(digits) : "0");
   
+  // Sync APP providers to match number of physicians
+  function syncAppProvidersToPhysicians() {
+    const numberOfPhysiciansInput = $("numberOfPhysiciansInput");
+    const numberOfAppProvidersInput = $("numberOfAppProvidersInput");
+    
+    if (numberOfPhysiciansInput && numberOfAppProvidersInput) {
+      numberOfAppProvidersInput.value = numberOfPhysiciansInput.value;
+    }
+  }
+  
+  // Handle practice type change - update number of physicians and patients per physician
+  function handlePracticeTypeChange() {
+    const practiceTypeDropdown = $("practiceTypeDropdown");
+    const numberOfPhysiciansInput = $("numberOfPhysiciansInput");
+    const averagePatientsPerPhysicianInput = $("averagePatientsPerPhysicianInput");
+    
+    if (practiceTypeDropdown && numberOfPhysiciansInput) {
+      const practiceType = practiceTypeDropdown.value;
+      const physicians = PRACTICE_TYPE_TO_PHYSICIANS[practiceType];
+      const patientsPerPhysician = PRACTICE_TYPE_TO_PATIENTS_PER_PHYSICIAN[practiceType];
+      
+      if (physicians !== undefined) {
+        numberOfPhysiciansInput.value = physicians;
+        syncAppProvidersToPhysicians(); // Sync APP providers
+      }
+      
+      if (patientsPerPhysician !== undefined && averagePatientsPerPhysicianInput) {
+        averagePatientsPerPhysicianInput.value = patientsPerPhysician;
+      }
+      
+      compute(); // Trigger recalculation
+    }
+  }
+  
+  // Handle number of physicians change - sync APP providers
+  function handlePhysiciansChange() {
+    syncAppProvidersToPhysicians();
+    compute();
+  }
+  
   // Initialize form with default values
   function initializeDefaults() {
     Object.entries(DEFAULTS).forEach(([key, value]) => {
@@ -83,6 +141,9 @@ const CONFIG = {
         el.value = value;
       }
     });
+    
+    // After setting defaults, update physicians based on practice type and sync APP providers
+    handlePracticeTypeChange();
   }
   
   // Reset form to default values (useful for "Reset" button)
@@ -186,11 +247,19 @@ const CONFIG = {
     const totalPatients65Plus = totalPatients * ratioPatients65Plus;
     totalPatients65PlusOutput.textContent = fmtInt(totalPatients65Plus);
 
-    const atRiskPatientsPerPhysician = totalPatients * ratioHighRiskPatients;
+    // At-Risk Patients per Physician = ((Patients per Physician * %40-64 * %Commercial) + (Patients per Physician * %65+ * %Medicare)) * %HighRisk
+    const patients40to64WithCommercial = averagePatientsPerPhysician * ratioPatients40to64 * ratio4064CommercialInsurance;
+    const patients65PlusWithMedicare = averagePatientsPerPhysician * ratioPatients65Plus * ratio65PlusMedicareCoverage;
+    const patientsWithInsurance = patients40to64WithCommercial + patients65PlusWithMedicare;
+    const atRiskPatientsPerPhysician = patientsWithInsurance * ratioHighRiskPatients;
     atRiskPatientsPerPhysicianOutput.textContent = fmtInt(atRiskPatientsPerPhysician);
 
     const totalAtRiskPatients = atRiskPatientsPerPhysician * numberOfPhysicians;
     totalAtRiskPatientsOutput.textContent = fmtInt(totalAtRiskPatients);
+
+    // Total Lesions Scanned Annually = Total At-Risk Patients * Average Lesions per Patient
+    const totalLesionsScannedAnnually = totalAtRiskPatients * averageLesionsPerPatient;
+    totalLesionsScannedAnnuallyOutput.textContent = fmtInt(totalLesionsScannedAnnually);
     
     
     // ...
@@ -218,13 +287,24 @@ const CONFIG = {
       el.addEventListener("blur", () => { clampPct(el); compute(); });
     });
   
+    // Special handler for practice type dropdown - updates physicians automatically
+    const practiceTypeDropdown = $("practiceTypeDropdown");
+    if (practiceTypeDropdown) {
+      practiceTypeDropdown.addEventListener("change", handlePracticeTypeChange);
+    }
+    
+    // Special handler for number of physicians - syncs APP providers
+    const numberOfPhysiciansInput = $("numberOfPhysiciansInput");
+    if (numberOfPhysiciansInput) {
+      numberOfPhysiciansInput.addEventListener("input", handlePhysiciansChange);
+      numberOfPhysiciansInput.addEventListener("change", handlePhysiciansChange);
+    }
+    
     // Other inputs and dropdowns trigger compute directly
     [
       "practiceNameInput",
-      "practiceTypeDropdown",
       "practiceSizeDropdown",
       "numberOfSitesInput",
-      "numberOfPhysiciansInput",
       "numberOfAppProvidersInput",
       "averagePatientsPerPhysicianInput",
       "averageLesionsPerPatientInput",
