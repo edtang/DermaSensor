@@ -206,20 +206,20 @@
         <div class="field">
           <label for="commercialPayerDropdown">Payer</label>
           <select id="commercialPayerDropdown">
-            <option>Option 1</option>
-            <option>Option 2</option>
-            <option>Option 3</option>
-            <option>Option 4</option>
-            <option>Option 5</option>
-            <option>Option 6</option>
-            <option>Option 7</option>
-            <option>Option 8</option>
+            <option>Mean</option>
+            <option>Kaiser Permanente Health Plans</option>
+            <option>UnitedHealthcare</option>
+            <option>Elevance Health</option>
+            <option>Health Care Service Corp</option>
+            <option>Guidewell Mutual Holding Group</option>
+            <option>Centene Corporation</option>
+            <option>Blue Shield of California</option>
           </select>
         </div>
         <div class="field two-col">
           <div>
-            <label for="commercialPercentClaimsInput">% of Claims</label>
-            <input id="commercialPercentClaimsInput" type="number" min="0" max="100" step="1" value="50" />
+            <label>% of Claims</label>
+            <output id="commercialPercentClaimsOutput">0</output>
           </div>
           <div>
             <label for="commercialReimbursementPerScanInput">Reimbursement per Scan (USD)</label>
@@ -233,20 +233,20 @@
         <div class="field">
           <label for="medicareMacDropdown">MAC</label>
           <select id="medicareMacDropdown">
-            <option>Option 1</option>
-            <option>Option 2</option>
-            <option>Option 3</option>
-            <option>Option 4</option>
-            <option>Option 5</option>
-            <option>Option 6</option>
-            <option>Option 7</option>
-            <option>Option 8</option>
+            <option>Mean</option>
+            <option>J5 - WPS Govt. Health Admin</option>
+            <option>J6 - National Govt. Services</option>
+            <option>J8 - National Govt. Services</option>
+            <option>J15 - CGS Administrators</option>
+            <option>JE - Noridian Healthcare Solutions</option>
+            <option>JF - Noridian Healthcare Solutions</option>
+            <option>JH - Novitas Solutions</option>
           </select>
         </div>
         <div class="field two-col">
           <div>
-            <label for="medicarePercentClaimsInput">% of Claims</label>
-            <input id="medicarePercentClaimsInput" type="number" min="0" max="100" step="1" value="40" />
+            <label>% of Claims</label>
+            <output id="medicarePercentClaimsOutput">0</output>
           </div>
           <div>
             <label for="medicareReimbursementPerScanInput">Reimbursement per Scan (USD)</label>
@@ -275,28 +275,32 @@
       </div>
 
       <div class="field">
-        <label>Estimated Annual Gross Reimbursement Opportunity with floopy</label>
+        <label>Estimated Annual Gross Reimbursement Opportunity with DermaSensor</label>
         <output id="estimatedAnnualGrossReimbursementOutput">0</output>
       </div>
 
       <div class="field">
-        <label>Number of floopy Devices</label>
-        <output id="numberOfFloopyDevicesOutput">0</output>
+        <label>Number of DermaSensor Devices</label>
+        <output id="numberOfDermaSensorDevicesOutput">0</output>
       </div>
 
       <div class="field">
-        <label for="floopySubscriptionCostPerMonthInput">floopy Subscription Plan Cost per Device per Month (USD)</label>
-        <input id="floopySubscriptionCostPerMonthInput" type="number" min="0" step="0.01" value="500" />
+        <label for="dermaSensorSubscriptionCostPerMonthInput">DermaSensor Subscription Plan Cost per Device per Month (USD)</label>
+        <input id="dermaSensorSubscriptionCostPerMonthInput" type="number" min="0" step="0.01" value="799" />
       </div>
 
       <div class="field">
-        <label>Estimated Annual Net Reimbursement Opportunity with floopy</label>
+        <label>Estimated Annual Net Reimbursement Opportunity with DermaSensor*</label>
         <output id="estimatedAnnualNetReimbursementOutput">0</output>
       </div>
 
       <div class="field">
         <label>Break-Even Estimate (Scans per Month)</label>
         <output id="breakEvenScansPerMonthOutput">0</output>
+      </div>
+
+      <div class="field">
+        <small class="text-muted">* The net reimbursement opportunity does not factor in staff time costs associated with DermaSensor device use.</small>
       </div>
     </section>
                             </div>

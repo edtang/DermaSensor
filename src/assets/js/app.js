@@ -24,20 +24,18 @@ const CONFIG = {
     averageLesionsPerPatient: 1.57,
     
     // Section 5: Reimbursement
-    commercialPercentClaims: 50,
-    commercialReimbursementPerScan: 80,
-    medicarePercentClaims: 40,
-    medicareReimbursementPerScan: 60,
-    cashPayPercentClaims: 10,
-    cashPayReimbursementPerScan: 90,
-    assumedPercentDenials: 5,
-    floopySubscriptionCostPerMonth: 500,
+    commercialReimbursementPerScan: 145.34,
+    medicareReimbursementPerScan: 145.78,
+    cashPayPercentClaims: 3.0,
+    cashPayReimbursementPerScan: 150.00,
+    assumedPercentDenials: 20.0,
+    dermaSensorSubscriptionCostPerMonth: 799,
     
   // Dropdown defaults
   practiceType: "Primary Care Practice",
   practiceSize: "1",
-  commercialPayer: "Option 1",
-  medicareMac: "Option 1"
+  commercialPayer: "Mean",
+  medicareMac: "Mean"
 };
 
 // Practice Type to Number of Physicians mapping
@@ -56,6 +54,30 @@ const PRACTICE_TYPE_TO_PATIENTS_PER_PHYSICIAN = {
   "Membership-based Care Practice": 1400,
   "Large Practice": 1400,
   "Enterprise/Group Network": 1400
+};
+
+// Commercial Payer to Reimbursement per Scan mapping
+const COMMERCIAL_PAYER_TO_REIMBURSEMENT = {
+  "Mean": 145.34,
+  "Kaiser Permanente Health Plans": 140.00,
+  "UnitedHealthcare": 138.60,
+  "Elevance Health": 140.00,
+  "Health Care Service Corp": 125.00,
+  "Guidewell Mutual Holding Group": 140.00,
+  "Centene Corporation": 140.00,
+  "Blue Shield of California": 140.00
+};
+
+// Medicare MAC to Reimbursement per Scan mapping
+const MEDICARE_MAC_TO_REIMBURSEMENT = {
+  "Mean": 145.78,
+  "J5 - WPS Govt. Health Admin": 135.00,
+  "J6 - National Govt. Services": 135.00,
+  "J8 - National Govt. Services": 135.00,
+  "J15 - CGS Administrators": 135.00,
+  "JE - Noridian Healthcare Solutions": 135.00,
+  "JF - Noridian Healthcare Solutions": 135.00,
+  "JH - Novitas Solutions": 138.60
 };
 
 // Utility helpers
@@ -122,6 +144,38 @@ const PRACTICE_TYPE_TO_PATIENTS_PER_PHYSICIAN = {
     compute();
   }
   
+  // Handle commercial payer change - update reimbursement value
+  function handleCommercialPayerChange() {
+    const commercialPayerDropdown = $("commercialPayerDropdown");
+    const commercialReimbursementInput = $("commercialReimbursementPerScanInput");
+    
+    if (commercialPayerDropdown && commercialReimbursementInput) {
+      const selectedPayer = commercialPayerDropdown.value;
+      const reimbursementValue = COMMERCIAL_PAYER_TO_REIMBURSEMENT[selectedPayer];
+      
+      if (reimbursementValue !== undefined) {
+        commercialReimbursementInput.value = reimbursementValue;
+        compute(); // Trigger recalculation
+      }
+    }
+  }
+  
+  // Handle Medicare MAC change - update reimbursement value
+  function handleMedicareMacChange() {
+    const medicareMacDropdown = $("medicareMacDropdown");
+    const medicareReimbursementInput = $("medicareReimbursementPerScanInput");
+    
+    if (medicareMacDropdown && medicareReimbursementInput) {
+      const selectedMac = medicareMacDropdown.value;
+      const reimbursementValue = MEDICARE_MAC_TO_REIMBURSEMENT[selectedMac];
+      
+      if (reimbursementValue !== undefined) {
+        medicareReimbursementInput.value = reimbursementValue;
+        compute(); // Trigger recalculation
+      }
+    }
+  }
+  
   // Initialize form with default values
   function initializeDefaults() {
     Object.entries(DEFAULTS).forEach(([key, value]) => {
@@ -144,6 +198,12 @@ const PRACTICE_TYPE_TO_PATIENTS_PER_PHYSICIAN = {
     
     // After setting defaults, update physicians based on practice type and sync APP providers
     handlePracticeTypeChange();
+    
+    // Set initial commercial reimbursement value based on selected payer
+    handleCommercialPayerChange();
+    
+    // Set initial Medicare reimbursement value based on selected MAC
+    handleMedicareMacChange();
   }
   
   // Reset form to default values (useful for "Reset" button)
@@ -167,6 +227,12 @@ const PRACTICE_TYPE_TO_PATIENTS_PER_PHYSICIAN = {
     // Clear practice name
     const practiceNameEl = $("practiceNameInput");
     if (practiceNameEl) practiceNameEl.value = "";
+    
+    // Update commercial reimbursement value based on selected payer
+    handleCommercialPayerChange();
+    
+    // Update Medicare reimbursement value based on selected MAC
+    handleMedicareMacChange();
     
     compute();
   }
@@ -206,13 +272,9 @@ const PRACTICE_TYPE_TO_PATIENTS_PER_PHYSICIAN = {
   
     // Section 5 — Reimbursement and Payer Mix
     const commercialPayer = s("commercialPayerDropdown");
-    const commercialPercentClaims = n("commercialPercentClaimsInput");
-    const ratioCommercialPercentClaims = pctToRatio(commercialPercentClaims);
     const commercialReimbursementPerScan = n("commercialReimbursementPerScanInput");
   
     const medicareMac = s("medicareMacDropdown");
-    const medicarePercentClaims = n("medicarePercentClaimsInput");
-    const ratioMedicarePercentClaims = pctToRatio(medicarePercentClaims);
     const medicareReimbursementPerScan = n("medicareReimbursementPerScanInput");
   
     const cashPayPercentClaims = n("cashPayPercentClaimsInput");
@@ -222,8 +284,8 @@ const PRACTICE_TYPE_TO_PATIENTS_PER_PHYSICIAN = {
     const assumedPercentDenials = n("assumedPercentDenialsInput");
     const ratioAssumedPercentDenials = pctToRatio(assumedPercentDenials);
   
-    const floopySubscriptionCostPerMonth = n("floopySubscriptionCostPerMonthInput");
-  
+    const dermaSensorSubscriptionCostPerMonth = n("dermaSensorSubscriptionCostPerMonthInput");
+
     // Output element refs
     const totalPatientsOutput = $("totalPatientsOutput");
     const totalPatients40to64Output = $("totalPatients40to64Output");
@@ -231,8 +293,10 @@ const PRACTICE_TYPE_TO_PATIENTS_PER_PHYSICIAN = {
     const atRiskPatientsPerPhysicianOutput = $("atRiskPatientsPerPhysicianOutput");
     const totalAtRiskPatientsOutput = $("totalAtRiskPatientsOutput");
     const totalLesionsScannedAnnuallyOutput = $("totalLesionsScannedAnnuallyOutput");
+    const commercialPercentClaimsOutput = $("commercialPercentClaimsOutput");
+    const medicarePercentClaimsOutput = $("medicarePercentClaimsOutput");
     const estimatedAnnualGrossReimbursementOutput = $("estimatedAnnualGrossReimbursementOutput");
-    const numberOfFloopyDevicesOutput = $("numberOfFloopyDevicesOutput");
+    const numberOfDermaSensorDevicesOutput = $("numberOfDermaSensorDevicesOutput");
     const estimatedAnnualNetReimbursementOutput = $("estimatedAnnualNetReimbursementOutput");
     const breakEvenScansPerMonthOutput = $("breakEvenScansPerMonthOutput");
   
@@ -257,12 +321,62 @@ const PRACTICE_TYPE_TO_PATIENTS_PER_PHYSICIAN = {
     const totalAtRiskPatients = atRiskPatientsPerPhysician * numberOfPhysicians;
     totalAtRiskPatientsOutput.textContent = fmtInt(totalAtRiskPatients);
 
+    // Calculate commercial percent claims using the formula: ((H17*H20*H23*H28*H14)/H31)-(F43/2)
+    // Where: H17=averagePatientsPerPhysician, H20=percentPatients40to64, H23=percent4064CommercialInsurance, 
+    //        H28=percentHighRiskPatients, H14=numberOfPhysicians, H31=totalAtRiskPatients, F43=cashPayPercentClaims
+    // Note: All percentage values (H20, H23, H28, F43) should be treated as raw percentages, not ratios
+    const commercialPercentClaims = ((averagePatientsPerPhysician * (percentPatients40to64/100) * (percent4064CommercialInsurance/100) * (percentHighRiskPatients/100) * numberOfPhysicians) / totalAtRiskPatients) - (cashPayPercentClaims/100 / 2);
+    const ratioCommercialPercentClaims = pctToRatio(Math.max(0, Math.min(100, commercialPercentClaims)));
+    
+    // Calculate Medicare percent claims using the formula: ((H17*H21*H24*H28*H14)/H31)-(F43/2)
+    // Where: H17=averagePatientsPerPhysician, H21=percentPatients65Plus, H24=percent65PlusMedicareCoverage,
+    //        H28=percentHighRiskPatients, H14=numberOfPhysicians, H31=totalAtRiskPatients, F43=cashPayPercentClaims
+    // Note: All percentage values (H21, H24, H28, F43) should be treated as raw percentages, not ratios
+    const medicarePercentClaims = ((averagePatientsPerPhysician * (percentPatients65Plus/100) * (percent65PlusMedicareCoverage/100) * (percentHighRiskPatients/100) * numberOfPhysicians) / totalAtRiskPatients) - (cashPayPercentClaims/100 / 2);
+    const ratioMedicarePercentClaims = pctToRatio(Math.max(0, Math.min(100, medicarePercentClaims)));
+
     // Total Lesions Scanned Annually = Total At-Risk Patients * Average Lesions per Patient
     const totalLesionsScannedAnnually = totalAtRiskPatients * averageLesionsPerPatient;
     totalLesionsScannedAnnuallyOutput.textContent = fmtInt(totalLesionsScannedAnnually);
     
+    // Display calculated commercial percent claims
+    commercialPercentClaimsOutput.textContent = fmtNum(commercialPercentClaims, 3) + "%";
     
-    // ...
+    // Display calculated Medicare percent claims
+    medicarePercentClaimsOutput.textContent = fmtNum(medicarePercentClaims, 3) + "%";
+    
+    // Calculate weighted average reimbursement per scan
+    const weightedReimbursementPerScan = (
+      (ratioCommercialPercentClaims * commercialReimbursementPerScan) +
+      (ratioMedicarePercentClaims * medicareReimbursementPerScan) +
+      (ratioCashPayPercentClaims * cashPayReimbursementPerScan)
+    );
+    
+    // Estimated Annual Gross Reimbursement Opportunity using the formula: ((H35*F39*H39)+(H35*F41*H41)+(H35*F43*H43))*(1-H45)
+    // Where: H35=totalLesionsScannedAnnually, F39=commercialPercentClaims, H39=commercialReimbursementPerScan,
+    //        F41=medicarePercentClaims, H41=medicareReimbursementPerScan, F43=cashPayPercentClaims, H43=cashPayReimbursementPerScan, H45=assumedPercentDenials
+    const commercialRevenue = totalLesionsScannedAnnually * (commercialPercentClaims) * commercialReimbursementPerScan;
+    const medicareRevenue = totalLesionsScannedAnnually * (medicarePercentClaims) * medicareReimbursementPerScan;
+    const cashPayRevenue = totalLesionsScannedAnnually * (cashPayPercentClaims/100) * cashPayReimbursementPerScan;
+    
+    const estimatedAnnualGrossReimbursement = (commercialRevenue + medicareRevenue + cashPayRevenue) * (1 - (assumedPercentDenials/100));
+    estimatedAnnualGrossReimbursementOutput.textContent = fmtMoney(estimatedAnnualGrossReimbursement);
+    
+    // Number of DermaSensor Devices = H14 (Number of Physicians)
+    const numberOfDermaSensorDevices = numberOfPhysicians;
+    numberOfDermaSensorDevicesOutput.textContent = fmtInt(numberOfDermaSensorDevices);
+    
+    // Annual DermaSensor subscription cost
+    const annualDermaSensorCost = numberOfDermaSensorDevices * dermaSensorSubscriptionCostPerMonth * 12;
+    
+    // Estimated Annual Net Reimbursement Opportunity using the formula: H47-(H50*12*H49)
+    // Where: H47=estimatedAnnualGrossReimbursement, H50=dermaSensorSubscriptionCostPerMonth, H49=numberOfDermaSensorDevices
+    const estimatedAnnualNetReimbursement = estimatedAnnualGrossReimbursement - (dermaSensorSubscriptionCostPerMonth * 12 * numberOfDermaSensorDevices);
+    estimatedAnnualNetReimbursementOutput.textContent = fmtMoney(estimatedAnnualNetReimbursement);
+    
+    // Break-Even Estimate = Monthly DermaSensor Cost / Weighted Reimbursement per Scan
+    const breakEvenScansPerMonth = (numberOfDermaSensorDevices * dermaSensorSubscriptionCostPerMonth) / weightedReimbursementPerScan;
+    breakEvenScansPerMonthOutput.textContent = fmtInt(Math.ceil(breakEvenScansPerMonth));
   }
   
   function attachEvents() {
@@ -276,8 +390,6 @@ const PRACTICE_TYPE_TO_PATIENTS_PER_PHYSICIAN = {
       "percent4064CommercialInsuranceInput",
       "percent65PlusMedicareCoverageInput",
       "percentHighRiskPatientsInput",
-      "commercialPercentClaimsInput",
-      "medicarePercentClaimsInput",
       "cashPayPercentClaimsInput",
       "assumedPercentDenialsInput"
     ].forEach(id => {
@@ -300,6 +412,18 @@ const PRACTICE_TYPE_TO_PATIENTS_PER_PHYSICIAN = {
       numberOfPhysiciansInput.addEventListener("change", handlePhysiciansChange);
     }
     
+    // Special handler for commercial payer dropdown - updates reimbursement value
+    const commercialPayerDropdown = $("commercialPayerDropdown");
+    if (commercialPayerDropdown) {
+      commercialPayerDropdown.addEventListener("change", handleCommercialPayerChange);
+    }
+    
+    // Special handler for Medicare MAC dropdown - updates reimbursement value
+    const medicareMacDropdown = $("medicareMacDropdown");
+    if (medicareMacDropdown) {
+      medicareMacDropdown.addEventListener("change", handleMedicareMacChange);
+    }
+    
     // Other inputs and dropdowns trigger compute directly
     [
       "practiceNameInput",
@@ -308,12 +432,8 @@ const PRACTICE_TYPE_TO_PATIENTS_PER_PHYSICIAN = {
       "numberOfAppProvidersInput",
       "averagePatientsPerPhysicianInput",
       "averageLesionsPerPatientInput",
-      "commercialPayerDropdown",
-      "commercialReimbursementPerScanInput",
-      "medicareMacDropdown",
-      "medicareReimbursementPerScanInput",
       "cashPayReimbursementPerScanInput",
-      "floopySubscriptionCostPerMonthInput"
+      "dermaSensorSubscriptionCostPerMonthInput"
     ].forEach(id => {
       const el = $(id);
       if (!el) return;
