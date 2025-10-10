@@ -581,7 +581,7 @@ function initializeWaterfallChart() {
                                 anchor: 'center',
                                 align: 'center',
                                 formatter: function(value, context) {
-                                    return '$' + Math.abs(value).toLocaleString();
+                                    return '$' + Math.round(Math.abs(value)).toLocaleString();
                                 }
                             }
                         },
@@ -665,7 +665,7 @@ function initializeWaterfallChart() {
                     beginAtZero: false,
                     ticks: {
                         callback: function(value, index, values) {
-                            return '$' + value.toLocaleString();
+                            return '$' + Math.round(value).toLocaleString();
                         },
                         maxTicksLimit: 8
                     }
