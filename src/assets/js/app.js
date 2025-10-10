@@ -129,12 +129,22 @@ const MEDICARE_MAC_TO_REIMBURSEMENT = {
       const patientsPerPhysician = PRACTICE_TYPE_TO_PATIENTS_PER_PHYSICIAN[practiceType];
       
       if (physicians !== undefined) {
-        numberOfPhysiciansInput.value = physicians;
+        // Force update the value using jQuery for bootstrap-input-spinner compatibility
+        if (numberOfPhysiciansInput.setValue) {
+          numberOfPhysiciansInput.setValue(physicians);
+        } else {
+          numberOfPhysiciansInput.value = physicians;
+        }
         syncAppProvidersToPhysicians(); // Sync APP providers
       }
       
       if (patientsPerPhysician !== undefined && averagePatientsPerPhysicianInput) {
-        averagePatientsPerPhysicianInput.value = patientsPerPhysician;
+        // Force update the value using jQuery for bootstrap-input-spinner compatibility
+        if (averagePatientsPerPhysicianInput.setValue) {
+          averagePatientsPerPhysicianInput.setValue(patientsPerPhysician);
+        } else {
+          averagePatientsPerPhysicianInput.value = patientsPerPhysician;
+        }
       }
       
       compute(); // Trigger recalculation
