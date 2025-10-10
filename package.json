@@ -1,6 +1,6 @@
 {
   "name": "DermaSensor",
-  "version": "0.0.02",
+  "version": "0.0.03",
   "productName": "DermaSensor",
   "description": "My Electron application description",
   "main": "src/main.js",

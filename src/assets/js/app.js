@@ -353,10 +353,10 @@ const MEDICARE_MAC_TO_REIMBURSEMENT = {
     totalLesionsScannedAnnuallyOutput.textContent = fmtInt(totalLesionsScannedAnnually);
     
     // Display calculated commercial percent claims
-    commercialPercentClaimsOutput.textContent = fmtNum(commercialPercentClaims, 3) + "%";
+    commercialPercentClaimsOutput.textContent = fmtNum(commercialPercentClaims, 1) + "%";
     
     // Display calculated Medicare percent claims
-    medicarePercentClaimsOutput.textContent = fmtNum(medicarePercentClaims, 3) + "%";
+    medicarePercentClaimsOutput.textContent = fmtNum(medicarePercentClaims, 1) + "%";
     
     // Calculate weighted average reimbursement per scan
     const weightedReimbursementPerScan = (
