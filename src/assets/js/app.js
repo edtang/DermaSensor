@@ -325,14 +325,14 @@ const MEDICARE_MAC_TO_REIMBURSEMENT = {
     // Where: H17=averagePatientsPerPhysician, H20=percentPatients40to64, H23=percent4064CommercialInsurance, 
     //        H28=percentHighRiskPatients, H14=numberOfPhysicians, H31=totalAtRiskPatients, F43=cashPayPercentClaims
     // Note: All percentage values (H20, H23, H28, F43) should be treated as raw percentages, not ratios
-    const commercialPercentClaims = ((averagePatientsPerPhysician * (percentPatients40to64/100) * (percent4064CommercialInsurance/100) * (percentHighRiskPatients/100) * numberOfPhysicians) / totalAtRiskPatients) - (cashPayPercentClaims/100 / 2);
+    const commercialPercentClaims = (((averagePatientsPerPhysician * (percentPatients40to64/100) * (percent4064CommercialInsurance/100) * (percentHighRiskPatients/100) * numberOfPhysicians) / totalAtRiskPatients) - (cashPayPercentClaims/100 / 2)) * 100;
     const ratioCommercialPercentClaims = pctToRatio(Math.max(0, Math.min(100, commercialPercentClaims)));
     
     // Calculate Medicare percent claims using the formula: ((H17*H21*H24*H28*H14)/H31)-(F43/2)
     // Where: H17=averagePatientsPerPhysician, H21=percentPatients65Plus, H24=percent65PlusMedicareCoverage,
     //        H28=percentHighRiskPatients, H14=numberOfPhysicians, H31=totalAtRiskPatients, F43=cashPayPercentClaims
     // Note: All percentage values (H21, H24, H28, F43) should be treated as raw percentages, not ratios
-    const medicarePercentClaims = ((averagePatientsPerPhysician * (percentPatients65Plus/100) * (percent65PlusMedicareCoverage/100) * (percentHighRiskPatients/100) * numberOfPhysicians) / totalAtRiskPatients) - (cashPayPercentClaims/100 / 2);
+    const medicarePercentClaims = (((averagePatientsPerPhysician * (percentPatients65Plus/100) * (percent65PlusMedicareCoverage/100) * (percentHighRiskPatients/100) * numberOfPhysicians) / totalAtRiskPatients) - (cashPayPercentClaims/100 / 2)) * 100;
     const ratioMedicarePercentClaims = pctToRatio(Math.max(0, Math.min(100, medicarePercentClaims)));
 
     // Total Lesions Scanned Annually = Total At-Risk Patients * Average Lesions per Patient
@@ -377,6 +377,9 @@ const MEDICARE_MAC_TO_REIMBURSEMENT = {
     // Break-Even Estimate = Monthly DermaSensor Cost / Weighted Reimbursement per Scan
     const breakEvenScansPerMonth = (numberOfDermaSensorDevices * dermaSensorSubscriptionCostPerMonth) / weightedReimbursementPerScan;
     breakEvenScansPerMonthOutput.textContent = fmtInt(Math.ceil(breakEvenScansPerMonth));
+    
+    // Update the waterfall chart with new calculated values
+    updateWaterfallChart();
   }
   
   function attachEvents() {
@@ -441,9 +444,233 @@ const MEDICARE_MAC_TO_REIMBURSEMENT = {
       el.addEventListener("change", compute);
     });
   
+    // Initialize the waterfall chart
+    initializeWaterfallChart();
+  
     // Initial computation
     compute();
   }
+
+
+// Waterfall chart for DermaSensor reimbursement opportunity
+var ctx_vc_chart = document.getElementById("myChart3");
+var myChart_chart = null;
+
+// Function to update the waterfall chart with current calculated values
+function updateWaterfallChart() {
+    if (!myChart_chart) return;
+    
+    // Get current calculated values
+    const commercialRevenue = parseFloat($("estimatedAnnualGrossReimbursementOutput")?.textContent?.replace(/[$,]/g, '') || 0);
+    const totalAtRiskPatients = parseFloat($("totalAtRiskPatientsOutput")?.textContent?.replace(/[,]/g, '') || 0);
+    const averageLesionsPerPatient = parseFloat($("averageLesionsPerPatientInput")?.value || 0);
+    const commercialReimbursementPerScan = parseFloat($("commercialReimbursementPerScanInput")?.value || 0);
+    const medicareReimbursementPerScan = parseFloat($("medicareReimbursementPerScanInput")?.value || 0);
+    const cashPayReimbursementPerScan = parseFloat($("cashPayReimbursementPerScanInput")?.value || 0);
+    const commercialPercentClaims = parseFloat($("commercialPercentClaimsOutput")?.textContent?.replace(/[%]/g, '') || 0) / 100;
+    const medicarePercentClaims = parseFloat($("medicarePercentClaimsOutput")?.textContent?.replace(/[%]/g, '') || 0) / 100;
+    const cashPayPercentClaims = parseFloat($("cashPayPercentClaimsInput")?.value || 0) / 100;
+    const assumedPercentDenials = parseFloat($("assumedPercentDenialsInput")?.value || 0) / 100;
+    const numberOfDermaSensorDevices = parseFloat($("numberOfDermaSensorDevicesOutput")?.textContent?.replace(/[,]/g, '') || 0);
+    const dermaSensorSubscriptionCostPerMonth = parseFloat($("dermaSensorSubscriptionCostPerMonthInput")?.value || 0);
+    
+    // Calculate individual revenue components
+    const totalLesionsScannedAnnually = totalAtRiskPatients * averageLesionsPerPatient;
+    
+    // First data point: H35*F39*H39 (Commercial Revenue)
+    const commercialRevenueComponent = totalLesionsScannedAnnually * commercialPercentClaims * commercialReimbursementPerScan;
+    console.log(totalLesionsScannedAnnually, commercialPercentClaims, commercialReimbursementPerScan);
+
+    const medicareRevenueComponent = totalLesionsScannedAnnually * medicarePercentClaims * medicareReimbursementPerScan;
+    const cashPayRevenueComponent = totalLesionsScannedAnnually * cashPayPercentClaims * cashPayReimbursementPerScan;
+    
+    // Calculate total gross revenue before denials
+    const totalGrossRevenue = commercialRevenueComponent + medicareRevenueComponent + cashPayRevenueComponent;
+    
+    // Calculate denials and device costs (as positive values for display)
+    const transactionalDenials = totalGrossRevenue * assumedPercentDenials;
+    const annualDeviceCosts = numberOfDermaSensorDevices * dermaSensorSubscriptionCostPerMonth * 12;
+    
+    // Final net reimbursement opportunity
+    const netReimbursementOpportunity = totalGrossRevenue - transactionalDenials - annualDeviceCosts;
+    
+    // Calculate cumulative baseline values for waterfall effect
+    const baseline1 = 0;
+    const baseline2 = commercialRevenueComponent;
+    const baseline3 = baseline2 + medicareRevenueComponent;
+    const baseline4 = annualDeviceCosts + Math.abs(netReimbursementOpportunity);  // Fourth offset by sum of fifth and sixth
+    const baseline5 = Math.abs(netReimbursementOpportunity);  // Fifth offset by sixth
+    const baseline6 = 0;  // Sixth has no offset
+    
+    // Update both datasets with the same structure for proper stacking
+    myChart_chart.data.datasets[0].data = [
+        baseline1,  // Spacer for first bar
+        baseline2,  // Spacer for second bar
+        baseline3,  // Spacer for third bar
+        baseline4,  // Spacer for fourth bar
+        baseline5,  // Spacer for fifth bar
+        baseline6   // Spacer for sixth bar
+    ];
+    
+    myChart_chart.data.datasets[1].data = [
+        commercialRevenueComponent,      // Visible value for first bar
+        medicareRevenueComponent,        // Visible value for second bar
+        cashPayRevenueComponent,         // Visible value for third bar
+        transactionalDenials,           // Visible value for fourth bar
+        annualDeviceCosts,              // Visible value for fifth bar
+        Math.abs(netReimbursementOpportunity)  // Visible value for sixth bar
+    ];
+    
+    myChart_chart.update();
+}
+
+// Initialize the waterfall chart
+function initializeWaterfallChart() {
+    if (!ctx_vc_chart) return;
+    
+    myChart_chart = new Chart(ctx_vc_chart, {
+    type: 'bar',
+
+    data: {
+        labels: [
+            'Commercial\nRevenue',
+            'Medicare\nRevenue', 
+            'Cash Pay',
+            'Transactional\nDenials',
+            'Device\nCosts',
+            'Net\nOpportunity'
+        ],
+
+            datasets: [
+                {
+                    label: 'Spacer',
+                    data: [0, 0, 0, 0, 0, 0], // Invisible spacer dataset
+                    backgroundColor: 'rgba(0, 0, 0, 0)', // Completely transparent
+                    borderColor: 'rgba(0, 0, 0, 0)', // Completely transparent
+                    borderWidth: 0,
+                    stack: 'stack1', // Explicitly set stack
+                    datalabels: { display: false }
+                },
+                {
+                    label: 'Revenue Components',
+                    data: [0, 0, 0, 0, 0, 0], // Will be updated by updateWaterfallChart()
+                    stack: 'stack1', // Explicitly set same stack
+                    datalabels: {
+                        labels: {
+                            title: {
+                                color: "#000000",
+                                font: {
+                                    size: 12,
+                                    weight: 'bold'
+                                },
+                                anchor: 'center',
+                                align: 'center',
+                                formatter: function(value, context) {
+                                    return '$' + Math.abs(value).toLocaleString();
+                                }
+                            }
+                        },
+                    },
+
+                    backgroundColor: [
+                        'rgba(173, 173, 255, 0.8)', // Light purple for positive values
+                        'rgba(173, 173, 255, 0.8)',
+                        'rgba(173, 173, 255, 0.8)',
+                        'rgba(255, 99, 132, 0.8)',   // Light red for negative values
+                        'rgba(255, 99, 132, 0.8)',
+                        'rgba(54, 162, 235, 1.0)'    // Dark blue for final total
+                    ],
+                    borderColor: [
+                        'rgba(173, 173, 255, 1.0)',
+                        'rgba(173, 173, 255, 1.0)',
+                        'rgba(173, 173, 255, 1.0)',
+                        'rgba(255, 99, 132, 1.0)',
+                        'rgba(255, 99, 132, 1.0)',
+                        'rgba(54, 162, 235, 1.0)'
+                    ],
+                    borderWidth: 2
+                }
+            ]
+    },
+    options: {
+        layout: {
+            padding: {
+                    top: 20
+            }
+        },
+        responsive: true,
+            maintainAspectRatio: false,
+
+        legend: {
+            display: false
+        },
+        
+        plugins: {
+            datalabels: {
+                display: false
+            }
+        },
+
+        plugins: {
+            title: {
+                display: true,
+                text: 'DermaSensor Estimated Potential Reimbursement Opportunity Per Annum',
+                font: {
+                    size: 16,
+                    weight: 'bold'
+                },
+                padding: {
+                    top: 10,
+                    bottom: 20
+                }
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(tooltipItem) {
+                        const value = tooltipItem.parsed.y;
+                        const label = tooltipItem.label.replace(/\n/g, ' ');
+                        return label + ": " + value.toLocaleString('en-US', { 
+                            style: 'currency', 
+                            currency: 'USD', 
+                            maximumFractionDigits: 0 
+                        });
+                    }
+                }
+            }
+        },
+        
+        // Force horizontal labels
+        onHover: function(event, activeElements) {
+            event.target.style.cursor = activeElements.length > 0 ? 'pointer' : 'default';
+        },
+
+            scales: {
+                yAxes: [{
+                    stacked: true,
+                    beginAtZero: false,
+                    ticks: {
+                        callback: function(value, index, values) {
+                            return '$' + value.toLocaleString();
+                        },
+                        maxTicksLimit: 8
+                    }
+                }],
+                xAxes: [{
+                    stacked: true,
+                    ticks: {
+                        maxRotation: 0,
+                        minRotation: 0,
+                        fontSize: 10
+                    }
+                }]
+            }
+    }
+    });
+    
+    // Initial update of the chart
+    updateWaterfallChart();
+}
+
   
   document.addEventListener("DOMContentLoaded", attachEvents);
   
