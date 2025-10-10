@@ -6,7 +6,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Trividia Health 0.18</title>
+        <title>DermaSensor 0.01</title>
         <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" >
         <link rel="stylesheet" href="assets/css/styles.css">
         <script src="assets/js/bootstrap-input-spinner.min.js"></script>
@@ -154,7 +154,7 @@
                                 <div class="col-sm-3 normaltext" style="padding-top: 5px;">
                                     <p>Number of Physicians</p>
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-sm-3">
                                     <input id="numberOfPhysiciansInput" class="normaltext" type="number" min="0" step="1" value="1" data-decimals="0" data-digit-grouping="false" />
                                 </div>
                             </div>
@@ -163,7 +163,7 @@
                                 <div class="col-sm-3 normaltext" style="padding-top: 5px;">
                                     <p>Number of Advanced Practice Providers (PAs, NPs)</p>
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-sm-3">
                                     <input id="numberOfAppProvidersInput" class="normaltext" type="number" min="0" step="1" value="0" data-decimals="0" data-digit-grouping="false" />
                                 </div>
                             </div>
@@ -172,7 +172,7 @@
                                 <div class="col-sm-3 normaltext" style="padding-top: 5px;">
                                     <p>Average Patients per Physician (panel size)</p>
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-sm-3">
                                     <input id="averagePatientsPerPhysicianInput" class="normaltext" type="number" min="0" step="1" value="2000" data-decimals="0" data-digit-grouping="false" />
                                 </div>
                                 <div class="col-sm-1"></div>
@@ -188,7 +188,7 @@
                                 <div class="col-sm-3 normaltext" style="padding-top: 5px;">
                                     <p>Percent Patients 40–64</p>
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-sm-3">
                                     <input id="percentPatients40to64Input" class="normaltext" data-suffix="%" type="number" min="0" max="100" step="1" value="40" data-decimals="0" data-digit-grouping="false" />
                                 </div>
                                 <div class="col-sm-1"></div>
@@ -204,7 +204,7 @@
                                 <div class="col-sm-3 normaltext" style="padding-top: 5px;">
                                     <p>Percent Patients 65+</p>
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-sm-3">
                                     <input id="percentPatients65PlusInput" class="normaltext" data-suffix="%" type="number" min="0" max="100" step="1" value="20" data-decimals="0" data-digit-grouping="false" />
                                 </div>
                                 <div class="col-sm-1"></div>
@@ -220,7 +220,7 @@
                                 <div class="col-sm-3 normaltext" style="padding-top: 5px;">
                                     <p>Percent 40–64 with Commercial Insurance</p>
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-sm-3">
                                     <input id="percent4064CommercialInsuranceInput" class="normaltext" data-suffix="%" type="number" min="0" max="100" step="1" value="80" data-decimals="0" data-digit-grouping="false" />
                                 </div>
                             </div>
@@ -229,7 +229,7 @@
                                 <div class="col-sm-3 normaltext" style="padding-top: 5px;">
                                     <p>Percent 65+ with Medicare Coverage</p>
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-sm-3">
                                     <input id="percent65PlusMedicareCoverageInput" class="normaltext" data-suffix="%" type="number" min="0" max="100" step="1" value="90" data-decimals="0" data-digit-grouping="false" />
                                 </div>
                             </div>
@@ -250,7 +250,7 @@
                                 <div class="col-sm-3 normaltext" style="padding-top: 5px;">
                                     <p>Percent of Adults at High Risk for Skin Cancer</p>
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-sm-3">
                                     <input id="percentHighRiskPatientsInput" class="normaltext" data-suffix="%" type="number" min="0" max="100" step="1" value="10" data-decimals="0" data-digit-grouping="false" />
                                 </div>
                             </div>
@@ -277,7 +277,7 @@
                                 <div class="col-sm-3 normaltext" style="padding-top: 5px;">
                                     <p>Average Lesions Scanned per Patient</p>
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-sm-3">
                                     <input id="averageLesionsPerPatientInput" class="normaltext" type="number" min="0" step="0.1" value="1.5" data-decimals="1" data-digit-grouping="false" />
                                 </div>
                                 <div class="col-sm-1"></div>
@@ -339,7 +339,7 @@
                                         <div class="col-sm-3" style="padding-top: 5px;">
                                             <p>Reimbursement per Scan (USD)</p>
                                         </div>
-                                        <div class="col-sm-2">
+                                        <div class="col-sm-3">
                                             <input id="commercialReimbursementPerScanInput" class="normaltext" data-prefix="$" type="number" min="0" step="0.01" value="80" data-decimals="2" data-digit-grouping="false" />
                                         </div>
                                     </div>
@@ -384,7 +384,7 @@
                                         <div class="col-sm-3" style="padding-top: 5px;">
                                             <p>Reimbursement per Scan (USD)</p>
                                         </div>
-                                        <div class="col-sm-2">
+                                        <div class="col-sm-3">
                                             <input id="medicareReimbursementPerScanInput" class="normaltext" data-prefix="$" type="number" min="0" step="0.01" value="60" data-decimals="2" data-digit-grouping="false" />
                                         </div>
                                     </div>
@@ -404,14 +404,13 @@
                                         <div class="col-sm-3" style="padding-top: 5px;">
                                             <p>% of Claims</p>
                                         </div>
-                                        <div class="col-sm-2">
+                                        <div class="col-sm-3">
                                             <input id="cashPayPercentClaimsInput" class="normaltext" data-suffix="%" type="number" min="0" max="100" step="1" value="10" data-decimals="0" data-digit-grouping="false" />
                                         </div>
-                                        <div class="col-sm-1"></div>
                                         <div class="col-sm-3" style="padding-top: 5px;">
                                             <p>Reimbursement per Scan (USD)</p>
                                         </div>
-                                        <div class="col-sm-2">
+                                        <div class="col-sm-3">
                                             <input id="cashPayReimbursementPerScanInput" class="normaltext" data-prefix="$" type="number" min="0" step="0.01" value="90" data-decimals="2" data-digit-grouping="false" />
                                         </div>
                                     </div>
@@ -423,7 +422,7 @@
                                 <div class="col-sm-3 normaltext" style="padding-top: 5px;">
                                     <p>Assumed Percentage of Transactional Denials</p>
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-sm-3">
                                     <input id="assumedPercentDenialsInput" class="normaltext" data-suffix="%" type="number" min="0" max="100" step="1" value="5" data-decimals="0" data-digit-grouping="false" />
                                 </div>
                             </div>
@@ -438,7 +437,7 @@
                             </div>
 
                             <div class="row" style="padding-top: 10px;">
-                                <div class="col-sm-3 normaltext" style="padding-top: 5px;">
+                                <div class="col-sm-4 normaltext" style="padding-top: 5px;">
                                     <p>Number of DermaSensor Devices</p>
                                 </div>
                                 <div class="col-sm-2">
@@ -450,7 +449,7 @@
                                 <div class="col-sm-4 normaltext" style="padding-top: 5px;">
                                     <p>DermaSensor Subscription Plan Cost per Device per Month (USD)</p>
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-sm-3">
                                     <input id="dermaSensorSubscriptionCostPerMonthInput" class="normaltext" data-prefix="$" type="number" min="0" step="0.01" value="799" data-decimals="2" data-digit-grouping="false" />
                                 </div>
                             </div>
@@ -465,7 +464,7 @@
                             </div>
 
                             <div class="row" style="padding-top: 10px;">
-                                <div class="col-sm-3 normaltext" style="padding-top: 5px;">
+                                <div class="col-sm-4 normaltext" style="padding-top: 5px;">
                                     <p>Break-Even Estimate (Scans per Month)</p>
                                 </div>
                                 <div class="col-sm-2">
@@ -481,7 +480,7 @@
 
                             <div class="row">
                                 <div class="col-xl-12 titleText">
-                                    <p>Estimated Annual Improved Profit by Switching to TRUE METRIX†</p>
+                                    <p>DermaSensor Estimated Potential Reimbursement Opportunity Per Annum</p>
 
                                 </div>
                             </div>
@@ -504,10 +503,10 @@
         </div>
     </body>
     
+    <script>if (window.module) module = window.module;</script>
     <script src="assets/js/app.js"> </script>
     <script src="https://cdn.jsdelivr.net/npm/autonumeric@4.1.0"></script>
     <script>
-    <!-- $("input[type='number']").inputSpinner() -->
+    jQuery("input[type='number']").inputSpinner()
     </script>
-</body>
 </html>

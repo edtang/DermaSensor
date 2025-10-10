@@ -101,7 +101,10 @@ const MEDICARE_MAC_TO_REIMBURSEMENT = {
   
   // Formatters
   const fmtInt = (x) => Math.round(x).toLocaleString();
-  const fmtMoney = (x) => `$${(x || 0).toFixed(2)}`;
+  const fmtMoney = (x) => {
+    const num = (x || 0).toFixed(2);
+    return `$${num.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
+  };
   const fmtNum = (x, digits = 2) => (Number.isFinite(x) ? x.toFixed(digits) : "0");
   
   // Sync APP providers to match number of physicians
@@ -355,8 +358,8 @@ const MEDICARE_MAC_TO_REIMBURSEMENT = {
     // Estimated Annual Gross Reimbursement Opportunity using the formula: ((H35*F39*H39)+(H35*F41*H41)+(H35*F43*H43))*(1-H45)
     // Where: H35=totalLesionsScannedAnnually, F39=commercialPercentClaims, H39=commercialReimbursementPerScan,
     //        F41=medicarePercentClaims, H41=medicareReimbursementPerScan, F43=cashPayPercentClaims, H43=cashPayReimbursementPerScan, H45=assumedPercentDenials
-    const commercialRevenue = totalLesionsScannedAnnually * (commercialPercentClaims) * commercialReimbursementPerScan;
-    const medicareRevenue = totalLesionsScannedAnnually * (medicarePercentClaims) * medicareReimbursementPerScan;
+    const commercialRevenue = totalLesionsScannedAnnually * (commercialPercentClaims/100) * commercialReimbursementPerScan;
+    const medicareRevenue = totalLesionsScannedAnnually * (medicarePercentClaims/100) * medicareReimbursementPerScan;
     const cashPayRevenue = totalLesionsScannedAnnually * (cashPayPercentClaims/100) * cashPayReimbursementPerScan;
     
     const estimatedAnnualGrossReimbursement = (commercialRevenue + medicareRevenue + cashPayRevenue) * (1 - (assumedPercentDenials/100));

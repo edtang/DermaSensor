@@ -11,6 +11,7 @@
     "publish": "electron-forge publish",
     "lint": "echo \"No linting configured\"",
     "obfuscate": "javascript-obfuscator",
+    "buildme":"electron-forge make --arch=universal --platform=darwin",
     "build": "npm run obfuscate src/assets/js/app.js --output dist/app.js && electron-forge make -- --arch=universal --platform=darwin"
 
   },
