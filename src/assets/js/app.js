@@ -459,6 +459,17 @@ const MEDICARE_MAC_TO_REIMBURSEMENT = {
       el.addEventListener("change", compute);
     });
   
+    // Toggle advanced insurance settings visibility
+    const toggleAdvancedInsurance = $("toggleAdvancedInsurance");
+    if (toggleAdvancedInsurance) {
+      toggleAdvancedInsurance.addEventListener("change", function() {
+        const rows = document.querySelectorAll('.advanced-insurance-row');
+        rows.forEach(row => {
+          row.style.display = this.checked ? '' : 'none';
+        });
+      });
+    }
+    
     // Initialize the waterfall chart
     initializeWaterfallChart();
   
