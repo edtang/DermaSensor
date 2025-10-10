@@ -438,6 +438,8 @@ const MEDICARE_MAC_TO_REIMBURSEMENT = {
       "numberOfAppProvidersInput",
       "averagePatientsPerPhysicianInput",
       "averageLesionsPerPatientInput",
+      "commercialReimbursementPerScanInput",
+      "medicareReimbursementPerScanInput",
       "cashPayReimbursementPerScanInput",
       "dermaSensorSubscriptionCostPerMonthInput"
     ].forEach(id => {
