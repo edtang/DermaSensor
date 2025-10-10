@@ -66,244 +66,422 @@
 
                
                 <div id="mainInputs">
-    <!-- Section 1 -->
-    <section class="card">
-      <div class="section-title sr-only">Section 1</div>
-      <div class="field">
-        <label for="practiceNameInput">Practice Name</label>
-        <textarea id="practiceNameInput" rows="2" placeholder="Enter practice name"></textarea>
-      </div>
-    </section>
-
-    <!-- Section 2 (Care Setting) -->
-    <section class="card">
-      <h2 class="section-title">Care Setting</h2>
-
-      <div class="field">
-        <label for="practiceTypeDropdown">Practice Type</label>
-        <select id="practiceTypeDropdown">
-          <option>Primary Care Practice</option>
-          <option>Specialty Care Practice</option>
-          <option>Membership-based Care Practice</option>
-          <option>Large Practice</option>
-          <option>Enterprise/Group Network</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label for="practiceSizeDropdown">Practice Size</label>
-        <select id="practiceSizeDropdown">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-          <option>10</option>
-          <option>15</option>
-          <option>20</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label for="numberOfSitesInput">Number of Sites</label>
-        <input id="numberOfSitesInput" type="number" min="0" step="1" value="1" />
-      </div>
-    </section>
-
-    <!-- Section 3 (Care Team & Practice Size) -->
-    <section class="card">
-      <h2 class="section-title">Care Team and Practice Size</h2>
-
-      <div class="field">
-        <label for="numberOfPhysiciansInput">Number of Physicians</label>
-        <input id="numberOfPhysiciansInput" type="number" min="0" step="1" value="1" />
-      </div>
-
-      <div class="field">
-        <label for="numberOfAppProvidersInput">Number of Advanced Practice Providers (PAs, NPs)</label>
-        <input id="numberOfAppProvidersInput" type="number" min="0" step="1" value="0" />
-      </div>
-
-      <div class="field">
-        <label for="averagePatientsPerPhysicianInput">Average Patients per Physician (panel size)</label>
-        <input id="averagePatientsPerPhysicianInput" type="number" min="0" step="1" value="2000" />
-      </div>
-
-      <div class="field">
-        <label>Total Patients in the Practice</label>
-        <output id="totalPatientsOutput">0</output>
-      </div>
-
-      <div class="field two-col">
-        <div>
-          <label for="percentPatients40to64Input">Percent Patients 40–64</label>
-          <input id="percentPatients40to64Input" type="number" min="0" max="100" step="1" value="40" />
-        </div>
-        <div>
-          <label>Total Patients 40–64</label>
-          <output id="totalPatients40to64Output">0</output>
-        </div>
-      </div>
-
-      <div class="field two-col">
-        <div>
-          <label for="percentPatients65PlusInput">Percent Patients 65+</label>
-          <input id="percentPatients65PlusInput" type="number" min="0" max="100" step="1" value="20" />
-        </div>
-        <div>
-          <label>Total Patients 65+</label>
-          <output id="totalPatients65PlusOutput">0</output>
-        </div>
-      </div>
-
-      <div class="field">
-        <label for="percent4064CommercialInsuranceInput">Percent 40–64 with Commercial Insurance</label>
-        <input id="percent4064CommercialInsuranceInput" type="number" min="0" max="100" step="1" value="80" />
-      </div>
-
-      <div class="field">
-        <label for="percent65PlusMedicareCoverageInput">Percent 65+ with Medicare Coverage</label>
-        <input id="percent65PlusMedicareCoverageInput" type="number" min="0" max="100" step="1" value="90" />
-      </div>
-    </section>
-
-    <!-- Section 4 (At-Risk Patients & Lesions) -->
-    <section class="card">
-      <h2 class="section-title">Number of At-Risk Patients and Lesions per Year</h2>
-
-      <div class="field">
-        <label for="percentHighRiskPatientsInput">Percent of Adults at High Risk for Skin Cancer</label>
-        <input id="percentHighRiskPatientsInput" type="number" min="0" max="100" step="1" value="10" />
-      </div>
-
-      <div class="field">
-        <label>At-Risk Patients per Physician</label>
-        <output id="atRiskPatientsPerPhysicianOutput">0</output>
-      </div>
-
-      <div class="field">
-        <label>Total At-Risk Patients in Practice</label>
-        <output id="totalAtRiskPatientsOutput">0</output>
-      </div>
-
-      <div class="field">
-        <label for="averageLesionsPerPatientInput">Average Lesions Scanned per Patient</label>
-        <input id="averageLesionsPerPatientInput" type="number" min="0" step="0.1" value="1.5" />
-      </div>
-
-      <div class="field">
-        <label>Total Lesions Scanned Annually</label>
-        <output id="totalLesionsScannedAnnuallyOutput">0</output>
-      </div>
-    </section>
-
-    <!-- Section 5 (Potential Reimbursement Opportunity) -->
-    <section class="card">
-      <h2 class="section-title">Potential Reimbursement Opportunity</h2>
-
-      <fieldset class="fieldset">
-        <legend>Commercial Payer</legend>
-        <div class="field">
-          <label for="commercialPayerDropdown">Payer</label>
-          <select id="commercialPayerDropdown">
-            <option>Mean</option>
-            <option>Kaiser Permanente Health Plans</option>
-            <option>UnitedHealthcare</option>
-            <option>Elevance Health</option>
-            <option>Health Care Service Corp</option>
-            <option>Guidewell Mutual Holding Group</option>
-            <option>Centene Corporation</option>
-            <option>Blue Shield of California</option>
-          </select>
-        </div>
-        <div class="field two-col">
-          <div>
-            <label>% of Claims</label>
-            <output id="commercialPercentClaimsOutput">0</output>
-          </div>
-          <div>
-            <label for="commercialReimbursementPerScanInput">Reimbursement per Scan (USD)</label>
-            <input id="commercialReimbursementPerScanInput" type="number" min="0" step="0.01" value="80" />
-          </div>
-        </div>
-      </fieldset>
-
-      <fieldset class="fieldset">
-        <legend>Medicare</legend>
-        <div class="field">
-          <label for="medicareMacDropdown">MAC</label>
-          <select id="medicareMacDropdown">
-            <option>Mean</option>
-            <option>J5 - WPS Govt. Health Admin</option>
-            <option>J6 - National Govt. Services</option>
-            <option>J8 - National Govt. Services</option>
-            <option>J15 - CGS Administrators</option>
-            <option>JE - Noridian Healthcare Solutions</option>
-            <option>JF - Noridian Healthcare Solutions</option>
-            <option>JH - Novitas Solutions</option>
-          </select>
-        </div>
-        <div class="field two-col">
-          <div>
-            <label>% of Claims</label>
-            <output id="medicarePercentClaimsOutput">0</output>
-          </div>
-          <div>
-            <label for="medicareReimbursementPerScanInput">Reimbursement per Scan (USD)</label>
-            <input id="medicareReimbursementPerScanInput" type="number" min="0" step="0.01" value="60" />
-          </div>
-        </div>
-      </fieldset>
-
-      <fieldset class="fieldset">
-        <legend>Cash-Pay Patients</legend>
-        <div class="field two-col">
-          <div>
-            <label for="cashPayPercentClaimsInput">% of Claims</label>
-            <input id="cashPayPercentClaimsInput" type="number" min="0" max="100" step="1" value="10" />
-          </div>
-          <div>
-            <label for="cashPayReimbursementPerScanInput">Reimbursement per Scan (USD)</label>
-            <input id="cashPayReimbursementPerScanInput" type="number" min="0" step="0.01" value="90" />
-          </div>
-        </div>
-      </fieldset>
-
-      <div class="field">
-        <label for="assumedPercentDenialsInput">Assumed Percentage of Transactional Denials</label>
-        <input id="assumedPercentDenialsInput" type="number" min="0" max="100" step="1" value="5" />
-      </div>
-
-      <div class="field">
-        <label>Estimated Annual Gross Reimbursement Opportunity with DermaSensor</label>
-        <output id="estimatedAnnualGrossReimbursementOutput">0</output>
-      </div>
-
-      <div class="field">
-        <label>Number of DermaSensor Devices</label>
-        <output id="numberOfDermaSensorDevicesOutput">0</output>
-      </div>
-
-      <div class="field">
-        <label for="dermaSensorSubscriptionCostPerMonthInput">DermaSensor Subscription Plan Cost per Device per Month (USD)</label>
-        <input id="dermaSensorSubscriptionCostPerMonthInput" type="number" min="0" step="0.01" value="799" />
-      </div>
-
-      <div class="field">
-        <label>Estimated Annual Net Reimbursement Opportunity with DermaSensor*</label>
-        <output id="estimatedAnnualNetReimbursementOutput">0</output>
-      </div>
-
-      <div class="field">
-        <label>Break-Even Estimate (Scans per Month)</label>
-        <output id="breakEvenScansPerMonthOutput">0</output>
-      </div>
-
-      <div class="field">
-        <small class="text-muted">* The net reimbursement opportunity does not factor in staff time costs associated with DermaSensor device use.</small>
-      </div>
-    </section>
+                    <div class="row" style="margin: 0px;border-top: 1px none rgb(201,204,207);border-right: 1px none rgb(201,204,207);border-left: 1px none rgb(201,204,207);width: 100%;">
+                        <div class="col-md-12 offset-md-0">
+                            
+                            <!-- Section 1: Practice Name -->
+                            <div class="row" style="margin-top: 10px;border-top: 1px solid rgb(20,31, 94);">
+                                <div class="col-md-10">
+                                    <p></p>
+                                </div>
                             </div>
+                            <div class="row">
+                                <div class="col-sm-3 normaltext">
+                                    <p>Practice Name</p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <textarea id="practiceNameInput" class="form-control" rows="2" placeholder="Enter practice name"></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Section 2: Care Setting -->
+                            <div class="row" style="margin-top: 20px;border-top: 1px solid rgb(20,31, 94);">
+                                <div class="col-md-10">
+                                    <p></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 titleText">
+                                    <p>Care Setting</p>
+                                </div>
+                            </div>
+                            
+                            <div class="row" style="padding-top: 10px;">
+                                <div class="col-sm-3 normaltext" style="padding-top: 5px;">
+                                    <p>Practice Type</p>
+                                </div>
+                                <div class="col-sm-4">
+                                    <select id="practiceTypeDropdown" class="form-select">
+                                        <option>Primary Care Practice</option>
+                                        <option>Specialty Care Practice</option>
+                                        <option>Membership-based Care Practice</option>
+                                        <option>Large Practice</option>
+                                        <option>Enterprise/Group Network</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row" style="padding-top: 10px;">
+                                <div class="col-sm-3 normaltext" style="padding-top: 5px;">
+                                    <p>Practice Size</p>
+                                </div>
+                                <div class="col-sm-2">
+                                    <select id="practiceSizeDropdown" class="form-select">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                        <option>10</option>
+                                        <option>15</option>
+                                        <option>20</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row" style="padding-top: 10px;">
+                                <div class="col-sm-3 normaltext" style="padding-top: 5px;">
+                                    <p>Number of Sites</p>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input id="numberOfSitesInput" class="normaltext" type="number" min="0" step="1" value="1" data-decimals="0" data-digit-grouping="false" />
+                                </div>
+                            </div>
+
+                            <!-- Section 3: Care Team and Practice Size -->
+                            <div class="row" style="margin-top: 20px;border-top: 1px solid rgb(20,31, 94);">
+                                <div class="col-md-10">
+                                    <p></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 titleText">
+                                    <p>Care Team and Practice Size</p>
+                                </div>
+                            </div>
+
+                            <div class="row" style="padding-top: 10px;">
+                                <div class="col-sm-3 normaltext" style="padding-top: 5px;">
+                                    <p>Number of Physicians</p>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input id="numberOfPhysiciansInput" class="normaltext" type="number" min="0" step="1" value="1" data-decimals="0" data-digit-grouping="false" />
+                                </div>
+                            </div>
+
+                            <div class="row" style="padding-top: 10px;">
+                                <div class="col-sm-3 normaltext" style="padding-top: 5px;">
+                                    <p>Number of Advanced Practice Providers (PAs, NPs)</p>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input id="numberOfAppProvidersInput" class="normaltext" type="number" min="0" step="1" value="0" data-decimals="0" data-digit-grouping="false" />
+                                </div>
+                            </div>
+
+                            <div class="row" style="padding-top: 10px;">
+                                <div class="col-sm-3 normaltext" style="padding-top: 5px;">
+                                    <p>Average Patients per Physician (panel size)</p>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input id="averagePatientsPerPhysicianInput" class="normaltext" type="number" min="0" step="1" value="2000" data-decimals="0" data-digit-grouping="false" />
+                                </div>
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-3 normaltext" style="padding-top: 5px;">
+                                    <p>Total Patients in the Practice</p>
+                                </div>
+                                <div class="col-sm-2">
+                                    <p class="outputField" id="totalPatientsOutput">0</p>
+                                </div>
+                            </div>
+
+                            <div class="row" style="padding-top: 10px;">
+                                <div class="col-sm-3 normaltext" style="padding-top: 5px;">
+                                    <p>Percent Patients 40–64</p>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input id="percentPatients40to64Input" class="normaltext" data-suffix="%" type="number" min="0" max="100" step="1" value="40" data-decimals="0" data-digit-grouping="false" />
+                                </div>
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-3 normaltext" style="padding-top: 5px;">
+                                    <p>Total Patients 40–64</p>
+                                </div>
+                                <div class="col-sm-2">
+                                    <p class="outputField" id="totalPatients40to64Output">0</p>
+                                </div>
+                            </div>
+
+                            <div class="row" style="padding-top: 10px;">
+                                <div class="col-sm-3 normaltext" style="padding-top: 5px;">
+                                    <p>Percent Patients 65+</p>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input id="percentPatients65PlusInput" class="normaltext" data-suffix="%" type="number" min="0" max="100" step="1" value="20" data-decimals="0" data-digit-grouping="false" />
+                                </div>
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-3 normaltext" style="padding-top: 5px;">
+                                    <p>Total Patients 65+</p>
+                                </div>
+                                <div class="col-sm-2">
+                                    <p class="outputField" id="totalPatients65PlusOutput">0</p>
+                                </div>
+                            </div>
+
+                            <div class="row" style="padding-top: 10px;">
+                                <div class="col-sm-3 normaltext" style="padding-top: 5px;">
+                                    <p>Percent 40–64 with Commercial Insurance</p>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input id="percent4064CommercialInsuranceInput" class="normaltext" data-suffix="%" type="number" min="0" max="100" step="1" value="80" data-decimals="0" data-digit-grouping="false" />
+                                </div>
+                            </div>
+
+                            <div class="row" style="padding-top: 10px;">
+                                <div class="col-sm-3 normaltext" style="padding-top: 5px;">
+                                    <p>Percent 65+ with Medicare Coverage</p>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input id="percent65PlusMedicareCoverageInput" class="normaltext" data-suffix="%" type="number" min="0" max="100" step="1" value="90" data-decimals="0" data-digit-grouping="false" />
+                                </div>
+                            </div>
+
+                            <!-- Section 4: At-Risk Patients & Lesions -->
+                            <div class="row" style="margin-top: 20px;border-top: 1px solid rgb(20,31, 94);">
+                                <div class="col-md-10">
+                                    <p></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 titleText">
+                                    <p>Number of At-Risk Patients and Lesions per Year</p>
+                                </div>
+                            </div>
+
+                            <div class="row" style="padding-top: 10px;">
+                                <div class="col-sm-3 normaltext" style="padding-top: 5px;">
+                                    <p>Percent of Adults at High Risk for Skin Cancer</p>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input id="percentHighRiskPatientsInput" class="normaltext" data-suffix="%" type="number" min="0" max="100" step="1" value="10" data-decimals="0" data-digit-grouping="false" />
+                                </div>
+                            </div>
+
+                            <div class="row" style="padding-top: 10px;">
+                                <div class="col-sm-3 normaltext" style="padding-top: 5px;">
+                                    <p>At-Risk Patients per Physician</p>
+                                </div>
+                                <div class="col-sm-2">
+                                    <p class="outputField" id="atRiskPatientsPerPhysicianOutput">0</p>
+                                </div>
+                            </div>
+
+                            <div class="row" style="padding-top: 10px;">
+                                <div class="col-sm-3 normaltext" style="padding-top: 5px;">
+                                    <p>Total At-Risk Patients in Practice</p>
+                                </div>
+                                <div class="col-sm-2">
+                                    <p class="outputField" id="totalAtRiskPatientsOutput">0</p>
+                                </div>
+                            </div>
+
+                            <div class="row" style="padding-top: 10px;">
+                                <div class="col-sm-3 normaltext" style="padding-top: 5px;">
+                                    <p>Average Lesions Scanned per Patient</p>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input id="averageLesionsPerPatientInput" class="normaltext" type="number" min="0" step="0.1" value="1.5" data-decimals="1" data-digit-grouping="false" />
+                                </div>
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-3 normaltext" style="padding-top: 5px;">
+                                    <p>Total Lesions Scanned Annually</p>
+                                </div>
+                                <div class="col-sm-2">
+                                    <p class="outputField" id="totalLesionsScannedAnnuallyOutput">0</p>
+                                </div>
+                            </div>
+
+                            <!-- Section 5: Potential Reimbursement Opportunity -->
+                            <div class="row" style="margin-top: 20px;border-top: 1px solid rgb(20,31, 94);">
+                                <div class="col-md-10">
+                                    <p></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 titleText">
+                                    <p>Potential Reimbursement Opportunity</p>
+                                </div>
+                            </div>
+
+                            <!-- Commercial Payer Fieldset -->
+                            <div class="row" style="padding-top: 10px;">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-12 headerText">
+                                            <p><strong>Commercial Payer</strong></p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row normaltext" style="padding-top: 10px;">
+                                        <div class="col-sm-3" style="padding-top: 5px;">
+                                            <p>Payer</p>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <select id="commercialPayerDropdown" class="form-select">
+                                                <option>Mean</option>
+                                                <option>Kaiser Permanente Health Plans</option>
+                                                <option>UnitedHealthcare</option>
+                                                <option>Elevance Health</option>
+                                                <option>Health Care Service Corp</option>
+                                                <option>Guidewell Mutual Holding Group</option>
+                                                <option>Centene Corporation</option>
+                                                <option>Blue Shield of California</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row normaltext" style="padding-top: 10px;">
+                                        <div class="col-sm-3" style="padding-top: 5px;">
+                                            <p>% of Claims</p>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <p class="outputField" id="commercialPercentClaimsOutput">0</p>
+                                        </div>
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-3" style="padding-top: 5px;">
+                                            <p>Reimbursement per Scan (USD)</p>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <input id="commercialReimbursementPerScanInput" class="normaltext" data-prefix="$" type="number" min="0" step="0.01" value="80" data-decimals="2" data-digit-grouping="false" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Medicare Fieldset -->
+                            <div class="row" style="padding-top: 20px;">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-12 headerText">
+                                            <p><strong>Medicare</strong></p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row normaltext" style="padding-top: 10px;">
+                                        <div class="col-sm-3" style="padding-top: 5px;">
+                                            <p>MAC</p>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <select id="medicareMacDropdown" class="form-select">
+                                                <option>Mean</option>
+                                                <option>J5 - WPS Govt. Health Admin</option>
+                                                <option>J6 - National Govt. Services</option>
+                                                <option>J8 - National Govt. Services</option>
+                                                <option>J15 - CGS Administrators</option>
+                                                <option>JE - Noridian Healthcare Solutions</option>
+                                                <option>JF - Noridian Healthcare Solutions</option>
+                                                <option>JH - Novitas Solutions</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row normaltext" style="padding-top: 10px;">
+                                        <div class="col-sm-3" style="padding-top: 5px;">
+                                            <p>% of Claims</p>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <p class="outputField" id="medicarePercentClaimsOutput">0</p>
+                                        </div>
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-3" style="padding-top: 5px;">
+                                            <p>Reimbursement per Scan (USD)</p>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <input id="medicareReimbursementPerScanInput" class="normaltext" data-prefix="$" type="number" min="0" step="0.01" value="60" data-decimals="2" data-digit-grouping="false" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Cash-Pay Patients Fieldset -->
+                            <div class="row" style="padding-top: 20px;">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-12 headerText">
+                                            <p><strong>Cash-Pay Patients</strong></p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row normaltext" style="padding-top: 10px;">
+                                        <div class="col-sm-3" style="padding-top: 5px;">
+                                            <p>% of Claims</p>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <input id="cashPayPercentClaimsInput" class="normaltext" data-suffix="%" type="number" min="0" max="100" step="1" value="10" data-decimals="0" data-digit-grouping="false" />
+                                        </div>
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-3" style="padding-top: 5px;">
+                                            <p>Reimbursement per Scan (USD)</p>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <input id="cashPayReimbursementPerScanInput" class="normaltext" data-prefix="$" type="number" min="0" step="0.01" value="90" data-decimals="2" data-digit-grouping="false" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Additional Fields -->
+                            <div class="row" style="padding-top: 20px;">
+                                <div class="col-sm-3 normaltext" style="padding-top: 5px;">
+                                    <p>Assumed Percentage of Transactional Denials</p>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input id="assumedPercentDenialsInput" class="normaltext" data-suffix="%" type="number" min="0" max="100" step="1" value="5" data-decimals="0" data-digit-grouping="false" />
+                                </div>
+                            </div>
+
+                            <div class="row" style="padding-top: 10px;">
+                                <div class="col-sm-4 normaltext" style="padding-top: 5px;">
+                                    <p>Estimated Annual Gross Reimbursement Opportunity with DermaSensor</p>
+                                </div>
+                                <div class="col-sm-2">
+                                    <p class="outputField" id="estimatedAnnualGrossReimbursementOutput">$0</p>
+                                </div>
+                            </div>
+
+                            <div class="row" style="padding-top: 10px;">
+                                <div class="col-sm-3 normaltext" style="padding-top: 5px;">
+                                    <p>Number of DermaSensor Devices</p>
+                                </div>
+                                <div class="col-sm-2">
+                                    <p class="outputField" id="numberOfDermaSensorDevicesOutput">0</p>
+                                </div>
+                            </div>
+
+                            <div class="row" style="padding-top: 10px;">
+                                <div class="col-sm-4 normaltext" style="padding-top: 5px;">
+                                    <p>DermaSensor Subscription Plan Cost per Device per Month (USD)</p>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input id="dermaSensorSubscriptionCostPerMonthInput" class="normaltext" data-prefix="$" type="number" min="0" step="0.01" value="799" data-decimals="2" data-digit-grouping="false" />
+                                </div>
+                            </div>
+
+                            <div class="row" style="padding-top: 10px;">
+                                <div class="col-sm-4 normaltext" style="padding-top: 5px;">
+                                    <p>Estimated Annual Net Reimbursement Opportunity with DermaSensor*</p>
+                                </div>
+                                <div class="col-sm-2">
+                                    <p class="outputField" id="estimatedAnnualNetReimbursementOutput">$0</p>
+                                </div>
+                            </div>
+
+                            <div class="row" style="padding-top: 10px;">
+                                <div class="col-sm-3 normaltext" style="padding-top: 5px;">
+                                    <p>Break-Even Estimate (Scans per Month)</p>
+                                </div>
+                                <div class="col-sm-2">
+                                    <p class="outputField" id="breakEvenScansPerMonthOutput">0</p>
+                                </div>
+                            </div>
+
+                            <div class="row citationText" style="padding-top: 10px;">
+                                <div class="col-md-12">
+                                    <p>* The net reimbursement opportunity does not factor in staff time costs associated with DermaSensor device use.</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
                         </div>
                     </div>
                 </div>
